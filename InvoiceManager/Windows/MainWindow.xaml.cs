@@ -23,6 +23,7 @@ namespace InvoiceManager.Windows
 		{
 			this.DataContext = sessionInfo;
 			InitializeComponent();
+			App.Current.MainWindow = this;
 		}
 		
 		public void PrintStatus(string message)
@@ -67,10 +68,11 @@ namespace InvoiceManager.Windows
 				MessageBox.Show(StatusBarMessage.Text, "Съобщение в статусбара", MessageBoxButton.OK);
 		}
 		
-		void Window_Loaded(object sender, RoutedEventArgs e)
+		void BrowsePartners_Click(object sender, RoutedEventArgs e)
 		{
-			App.Current.MainWindow = this;
-			ContentManager.PrintStatus("Добре дошли в мениджъра на фактури.");
+			PartnersListControl partnerListControl = new PartnersListControl();
+			partnerListControl.SetValue(Grid.RowProperty, 1);
+			MainWindowGrid.Children.Add(partnerListControl);
 		}
 		#endregion
 	}

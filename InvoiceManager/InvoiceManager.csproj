@@ -110,11 +110,16 @@
       <DependentUpon>AddPartnerControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Windows\UserControls\PartnersListControl.xaml.cs">
+      <DependentUpon>PartnersListControl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="LoginWindow.xaml" />
     <Page Include="Windows\MainWindow.xaml" />
     <Page Include="Windows\UserControls\AddPartnerControl.xaml" />
+    <Page Include="Windows\UserControls\PartnersListControl.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities" />
@@ -126,6 +131,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Resource Include="Resources\new.png" />
+    <Resource Include="Resources\Delete.png" />
+    <Resource Include="Resources\Edit.png" />
     <None Include="Resources\InvoiceDB.accdb" />
     <Resource Include="Resources\questionMark.png" />
   </ItemGroup>

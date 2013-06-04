@@ -13,3 +13,5 @@ C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\
 C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\LoginWindow.g.cs
 C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\AddPartnerControl.baml
 C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\AddPartnerControl.g.cs
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\PartnersListControl.baml
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\PartnersListControl.g.cs

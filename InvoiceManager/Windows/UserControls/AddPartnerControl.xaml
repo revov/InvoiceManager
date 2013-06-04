@@ -22,7 +22,7 @@
 				Padding="5"
 				IsCancel="True">Отказ</Button>
 		</StackPanel>
-		<ScrollViewer
+		<ScrollViewer VerticalScrollBarVisibility="Auto"
 			DockPanel.Dock="Top">
 			<Grid
 				Margin="10"

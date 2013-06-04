@@ -6,8 +6,7 @@
     Height="600"
     ResizeMode="CanResize"
     MinHeight="320"
-    MinWidth="350"
-	Loaded="Window_Loaded">
+    MinWidth="350">
 	<Grid Name="MainWindowGrid">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
@@ -17,25 +16,25 @@
 			
 			<Menu Grid.Row="0">
 				<MenuItem Header="Потребители">
-					<MenuItem Header="Нов" IsEnabled="{Binding Path=CurrentRole.USER_ACCESS}"></MenuItem>
-					<MenuItem Header="Прегледай всички" IsEnabled="{Binding Path=CurrentRole.USER_ACCESS}"></MenuItem>
+					<MenuItem Header="Нов" IsEnabled="{Binding Path=CurrentRole.USER_ACCESS}"/>
+					<MenuItem Header="Прегледай всички" IsEnabled="{Binding Path=CurrentRole.USER_ACCESS}"/>
 					<Separator/>
-					<MenuItem Header="Редактирай моят профил"></MenuItem>
+					<MenuItem Header="Редактирай моят профил"/>
 					<Separator/>
-					<MenuItem Name="MenuSignOut" Click="MenuSignOut_Click" Header="Отпиши ме" ToolTip="Връщане на екрана за смяна на потребител"></MenuItem>
-					<MenuItem Name="MenuExit" Click="MenuExit_Click" Header="Изход" ToolTip="Изход от приложението"></MenuItem>
+					<MenuItem Name="MenuSignOut" Click="MenuSignOut_Click" Header="Отпиши ме" ToolTip="Връщане на екрана за смяна на потребител"/>
+					<MenuItem Name="MenuExit" Click="MenuExit_Click" Header="Изход" ToolTip="Изход от приложението"/>
 				</MenuItem>
 				<MenuItem Header="Продукти">
-					<MenuItem Header="Нов" IsEnabled="{Binding Path=CurrentRole.WRITE_ACCESS}"></MenuItem>
-					<MenuItem Header="Прегледай всички"></MenuItem>
+					<MenuItem Header="Нов" IsEnabled="{Binding Path=CurrentRole.WRITE_ACCESS}"/>
+					<MenuItem Header="Прегледай всички"/>
 				</MenuItem>
 				<MenuItem Header="Контрагенти">
-					<MenuItem Name="NewPartner" Click="NewPartner_Click" Header="Нов" IsEnabled="{Binding Path=CurrentRole.WRITE_ACCESS}"></MenuItem>
-					<MenuItem Header="Прегледай всички"></MenuItem>
+					<MenuItem Name="NewPartner" Click="NewPartner_Click" Header="Нов" IsEnabled="{Binding Path=CurrentRole.WRITE_ACCESS}"/>
+					<MenuItem Name="BrowsePartners" Click="BrowsePartners_Click" Header="Прегледай всички"/>
 				</MenuItem>
 				<MenuItem Header="Фактури">
-					<MenuItem Header="Нов" IsEnabled="{Binding Path=CurrentRole.WRITE_ACCESS}"></MenuItem>
-					<MenuItem Header="Прегледай всички"></MenuItem>
+					<MenuItem Header="Нов" IsEnabled="{Binding Path=CurrentRole.WRITE_ACCESS}"/>
+					<MenuItem Header="Прегледай всички"/>
 				</MenuItem>
 			</Menu>
 			
@@ -57,7 +56,9 @@
 				</StatusBar.ItemsPanel>
 				
 				<StatusBarItem Grid.Column="0">
-					<TextBlock Margin="0 0 5 0" Name="StatusBarMessage" MouseDown="StatusBarMessage_MouseDown"></TextBlock>
+					<TextBlock Margin="0 0 5 0" Name="StatusBarMessage" MouseDown="StatusBarMessage_MouseDown">
+						Добре дошли в мениджъра на фактури!
+					</TextBlock>
 				</StatusBarItem>
 				
 				<StatusBarItem Grid.Column="1">
