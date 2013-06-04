@@ -1,0 +1,15 @@
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\bin\Debug\InvoiceManager.exe
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\bin\Debug\InvoiceManager.pdb
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\InvoiceManager.csprojResolveAssemblyReference.cache
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\App.g.cs
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\InvoiceManager_MarkupCompile.cache
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\InvoiceManager.g.resources
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\InvoiceManager.exe
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\InvoiceManager.pdb
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\bin\Debug\InvoiceManager.exe.config
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\MainWindow.baml
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\MainWindow.g.cs
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\LoginWindow.baml
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\LoginWindow.g.cs
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\AddPartnerControl.baml
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\AddPartnerControl.g.cs
