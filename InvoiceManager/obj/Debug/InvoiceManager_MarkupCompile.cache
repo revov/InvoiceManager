@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\App.xaml
-4-942014243
+71157652540
 
-241400507860
+281715882119
 12-910342146
-LoginWindow.xaml;Windows\MainWindow.xaml;Windows\UserControls\AddPartnerControl.xaml;Windows\UserControls\PartnersListControl.xaml;
+LoginWindow.xaml;Windows\MainWindow.xaml;Windows\UserControls\AddPartnerControl.xaml;Windows\UserControls\EditPartnerControl.xaml;Windows\UserControls\ModulePanel.xaml;Windows\UserControls\PartnerForm.xaml;Windows\UserControls\PartnersListControl.xaml;
 
 False
 

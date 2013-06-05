@@ -8,7 +8,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 
+using InvoiceManager.Commands;
 using InvoiceManager.Entities;
+using InvoiceManager.Repositories;
 using InvoiceManager.Services;
 using InvoiceManager.Windows.UserControls;
 
@@ -22,6 +24,25 @@ namespace InvoiceManager.Windows
 		public MainWindow(SessionInfo sessionInfo)
 		{
 			this.DataContext = sessionInfo;
+			
+			#region Command bindings
+			//New Partner command binding
+			CommandBinding newPartnerBinding = new CommandBinding(PartnerCommands.NewPartner);
+			newPartnerBinding.Executed += NewPartnerCommand_Executed;
+			newPartnerBinding.CanExecute += NewPartnerCommand_CanExecute;
+			CommandBindings.Add(newPartnerBinding);
+			//Edit Partner command binding
+			CommandBinding editPartnerBinding = new CommandBinding(PartnerCommands.EditPartner);
+			editPartnerBinding.Executed += EditPartnerCommand_Executed;
+			editPartnerBinding.CanExecute += EditPartnerCommand_CanExecute;
+			CommandBindings.Add(editPartnerBinding);
+			//Delete Partner command binding
+			CommandBinding deletePartnerBinding = new CommandBinding(PartnerCommands.DeletePartner);
+			deletePartnerBinding.Executed += DeletePartnerCommand_Executed;
+			deletePartnerBinding.CanExecute += DeletePartnerCommand_CanExecute;
+			CommandBindings.Add(deletePartnerBinding);
+			#endregion
+			
 			InitializeComponent();
 			App.Current.MainWindow = this;
 		}
@@ -37,7 +58,65 @@ namespace InvoiceManager.Windows
 			StatusBarMessage.Text = message;
 		}
 		
+		public void ShowContent(Control control)
+		{
+			MainAreaModulePanel.Add(control);
+			
+		}
+		
 		#region Event handlers
+		
+		#region New partner command
+		void NewPartnerCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			AddPartnerControl addPartnerControl = new AddPartnerControl();
+			ContentManager.ShowContent(addPartnerControl);
+		}
+		
+		void NewPartnerCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = SecurityManager.CurrentSessionInfo.CurrentRole.WRITE_ACCESS;
+		}
+		#endregion
+		
+		#region Edit partner command
+		void EditPartnerCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			if (e.Parameter == null)
+			{
+				ContentManager.PrintStatus("TODO: Не сте избрали контрагент за редактиране.", Brushes.Red);
+				return;
+			}
+			EditPartnerControl editPartnerControl = new EditPartnerControl((Partner)e.Parameter);
+			ContentManager.ShowContent(editPartnerControl);
+		}
+		
+		void EditPartnerCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = SecurityManager.CurrentSessionInfo.CurrentRole.MODIFY_ACCESS;
+		}
+		#endregion
+		
+		#region Delete partner command
+		void DeletePartnerCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			if (e.Parameter == null)
+			{
+				ContentManager.PrintStatus("TODO: Не сте избрали контрагент за изтриване.", Brushes.Red);
+				return;
+			}
+			Partner partner = (Partner)e.Parameter;
+			PartnerRepository.Delete(partner.ID);
+			Logger.Log("Изтрит контрагент " + partner.ID);
+			ContentManager.PrintStatus("Контрагентът беше изтрит успешно.");
+		}
+		
+		void DeletePartnerCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = SecurityManager.CurrentSessionInfo.CurrentRole.MODIFY_ACCESS;
+		}
+		#endregion
+		
 		void MenuExit_Click(object sender, RoutedEventArgs e)
 		{
 			App.Current.Shutdown();
@@ -55,24 +134,16 @@ namespace InvoiceManager.Windows
 			}
 		}
 		
-		void NewPartner_Click(object sender, RoutedEventArgs e)
+		void BrowsePartners_Click(object sender, RoutedEventArgs e)
 		{
-			AddPartnerControl addPartnerControl = new AddPartnerControl();
-			addPartnerControl.SetValue(Grid.RowProperty, 1);
-			MainWindowGrid.Children.Add(addPartnerControl);
+			PartnersListControl partnerListControl = new PartnersListControl();
+			ContentManager.ShowContent(partnerListControl);
 		}
 		
 		void StatusBarMessage_MouseDown(object sender, MouseButtonEventArgs e)
 		{
 			if (StatusBarMessage.Text!="")
 				MessageBox.Show(StatusBarMessage.Text, "Съобщение в статусбара", MessageBoxButton.OK);
-		}
-		
-		void BrowsePartners_Click(object sender, RoutedEventArgs e)
-		{
-			PartnersListControl partnerListControl = new PartnersListControl();
-			partnerListControl.SetValue(Grid.RowProperty, 1);
-			MainWindowGrid.Children.Add(partnerListControl);
 		}
 		#endregion
 	}

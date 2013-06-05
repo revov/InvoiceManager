@@ -87,18 +87,16 @@ namespace InvoiceManager.Repositories
         public static void Update(Invoice invoice)
         {
             const string statement = @"update INVOICES
-                                    set SELLER_ID=@seller_id, CUSTOMER_ID=@customer_id,
-										INVOICE_DATE=@invoice_date, FISCAL_EVENT_DATE=@fiscal_event_date,
-										PAYMENT_COMPLETED=@payment_completed
+                                    set SELLER_ID=@seller_id, CUSTOMER_ID=@customer_id, INVOICE_DATE=@invoice_date, FISCAL_EVENT_DATE=@fiscal_event_date, PAYMENT_COMPLETED=@payment_completed
                                     where ID=@id";
             OleDbCommand cmd = new OleDbCommand(statement, conn);
 
-            cmd.Parameters.AddWithValue("@id", invoice.ID);
             cmd.Parameters.AddWithValue("@seller_id", invoice.SELLER_ID);
             cmd.Parameters.AddWithValue("@customer_id", invoice.CUSTOMER_ID);
             cmd.Parameters.AddWithValue("@invoice_date", invoice.INVOICE_DATE);
             cmd.Parameters.AddWithValue("@fiscal_event_date", invoice.FISCAL_EVENT_DATE);
             cmd.Parameters.AddWithValue("@payment_completed", invoice.PAYMENT_COMPLETED);
+            cmd.Parameters.AddWithValue("@id", invoice.ID);
 
             try
             {

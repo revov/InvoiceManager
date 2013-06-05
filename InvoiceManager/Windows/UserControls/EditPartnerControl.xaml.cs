@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.OleDb;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -17,16 +16,24 @@ using InvoiceManager.Services;
 namespace InvoiceManager.Windows.UserControls
 {
 	/// <summary>
-	/// Interaction logic for AddPartnerControl.xaml
+	/// Wrapper for the AddPartnerControl
 	/// </summary>
-	public partial class AddPartnerControl : UserControl
+	public partial class EditPartnerControl : UserControl
 	{
-		public AddPartnerControl()
+		public EditPartnerControl(Partner partner)
 		{
 			InitializeComponent();
+			//Populate the form
+			partnerForm.IdField.Text = partner.ID;
+			partnerForm.IdField.IsEnabled = false;
+			partnerForm.VatNField.Text = partner.VAT_NUMBER;
+			partnerForm.NameField.Text = partner.PARTNER_NAME;
+			partnerForm.AddressField.Text = partner.ADDRESS;
+			partnerForm.PostCodeField.Text = partner.POST_CODE.ToString();
+			partnerForm.AdditionalInfoField.Text = partner.ADDITIONAL_INFO;
 		}
 		
-		protected void AddPartnerButton_Click(object sender, RoutedEventArgs e)
+		protected void EditPartnerButton_Click(object sender, RoutedEventArgs e)
 		{
 			partnerForm.FiltrateForm();
 			if (partnerForm.ValidateForm())
@@ -42,15 +49,15 @@ namespace InvoiceManager.Windows.UserControls
 					                         	POST_CODE = Int32.Parse(partnerForm.PostCodeField.Text),
 					                         	ADDITIONAL_INFO = partnerForm.AdditionalInfoField.Text
 					                         };
-					PartnerRepository.Create(partner);
+					PartnerRepository.Update(partner);
 					//If an exception is not thrown:
-					Logger.Log("Добавен контрагент " + partner.ID);
-					ContentManager.PrintStatus("Добавянето успешно");
+					Logger.Log("Редактиран контрагент " + partner.ID);
+					ContentManager.PrintStatus("Редактирането успешно");
 					ContentManager.RemoveFromParent(this);
 				}
 				catch (OleDbException ex)
 				{
-					MessageBox.Show("Възникна грешка при добавянето на контрагент:" +
+					MessageBox.Show("Възникна грешка при редактирането на контрагент:" +
 					                Environment.NewLine + Environment.NewLine + ex.Message,
 					                "Грешка.", MessageBoxButton.OK,MessageBoxImage.Error);
 					partnerForm.IdField.Focus();
@@ -64,5 +71,6 @@ namespace InvoiceManager.Windows.UserControls
 		{
 			ContentManager.RemoveFromParent(this);
 		}
+		
 	}
 }

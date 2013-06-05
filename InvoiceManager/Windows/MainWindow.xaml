@@ -1,6 +1,8 @@
 ﻿<Window x:Class="InvoiceManager.Windows.MainWindow"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:usr="clr-namespace:InvoiceManager.Windows.UserControls"
+    xmlns:commands="clr-namespace:InvoiceManager.Commands"
 	Title="InvoiceManager"
     Width="800"
     Height="600"
@@ -29,7 +31,7 @@
 					<MenuItem Header="Прегледай всички"/>
 				</MenuItem>
 				<MenuItem Header="Контрагенти">
-					<MenuItem Name="NewPartner" Click="NewPartner_Click" Header="Нов" IsEnabled="{Binding Path=CurrentRole.WRITE_ACCESS}"/>
+					<MenuItem Name="NewPartner" Header="Нов" Command="commands:PartnerCommands.NewPartner"/>
 					<MenuItem Name="BrowsePartners" Click="BrowsePartners_Click" Header="Прегледай всички"/>
 				</MenuItem>
 				<MenuItem Header="Фактури">
@@ -37,7 +39,9 @@
 					<MenuItem Header="Прегледай всички"/>
 				</MenuItem>
 			</Menu>
-			
+		
+			<usr:ModulePanel x:Name="MainAreaModulePanel" Grid.Row="1"></usr:ModulePanel>
+		
 			<StatusBar Grid.Row="2">
 				<StatusBar.ItemsPanel>
 					<ItemsPanelTemplate>

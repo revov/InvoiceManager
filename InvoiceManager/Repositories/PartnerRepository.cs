@@ -86,18 +86,16 @@ namespace InvoiceManager.Repositories
         public static void Update(Partner partner)
         {
             const string statement = @"update PARTNERS
-                                    set VAT_NUMBER=@vat_number, PARTNER_NAME=@partner_name,
-										ADDRESS=@address, POST_CODE=@post_code,
-										ADDITIONAL_INFO=@additional_info
+                                    set VAT_NUMBER=@vat_number, PARTNER_NAME=@partner_name, ADDRESS=@address, POST_CODE=@post_code, ADDITIONAL_INFO=@additional_info
                                     where ID=@id";
             OleDbCommand cmd = new OleDbCommand(statement, conn);
 
-            cmd.Parameters.AddWithValue("@id", partner.ID);
             cmd.Parameters.AddWithValue("@vat_number", partner.VAT_NUMBER);
             cmd.Parameters.AddWithValue("@partner_name", partner.PARTNER_NAME);
             cmd.Parameters.AddWithValue("@address", partner.ADDRESS);
             cmd.Parameters.AddWithValue("@post_code", partner.POST_CODE);
             cmd.Parameters.AddWithValue("@additional_info", partner.ADDITIONAL_INFO);
+            cmd.Parameters.AddWithValue("@id", partner.ID);
 
             try
             {

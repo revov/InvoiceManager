@@ -79,6 +79,7 @@
       <SubType>Code</SubType>
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\PartnerCommands.cs" />
     <Compile Include="Entities\Invoice.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\Product.cs" />
@@ -110,6 +111,18 @@
       <DependentUpon>AddPartnerControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Windows\UserControls\EditPartnerControl.xaml.cs">
+      <DependentUpon>EditPartnerControl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\UserControls\ModulePanel.xaml.cs">
+      <DependentUpon>ModulePanel.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\UserControls\PartnerForm.xaml.cs">
+      <DependentUpon>PartnerForm.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Windows\UserControls\PartnersListControl.xaml.cs">
       <DependentUpon>PartnersListControl.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -119,10 +132,14 @@
     <Page Include="LoginWindow.xaml" />
     <Page Include="Windows\MainWindow.xaml" />
     <Page Include="Windows\UserControls\AddPartnerControl.xaml" />
+    <Page Include="Windows\UserControls\EditPartnerControl.xaml" />
+    <Page Include="Windows\UserControls\ModulePanel.xaml" />
+    <Page Include="Windows\UserControls\PartnerForm.xaml" />
     <Page Include="Windows\UserControls\PartnersListControl.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities" />
+    <Folder Include="Commands" />
     <Folder Include="Resources" />
     <Folder Include="Windows" />
     <Folder Include="Services" />
@@ -131,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Resource Include="Resources\refresh.png" />
     <Resource Include="Resources\new.png" />
     <Resource Include="Resources\Delete.png" />
     <Resource Include="Resources\Edit.png" />

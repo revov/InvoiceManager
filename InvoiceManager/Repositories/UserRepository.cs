@@ -84,10 +84,10 @@ namespace InvoiceManager.Repositories
                                     where ID=@id";
             OleDbCommand cmd = new OleDbCommand(statement, conn);
 
-            cmd.Parameters.AddWithValue("@id", user.ID);
             cmd.Parameters.AddWithValue("@password", user.PASSWORD);
             cmd.Parameters.AddWithValue("@role_id", user.ROLE_ID);
             cmd.Parameters.AddWithValue("@seller_id", user.SELLER_ID);
+            cmd.Parameters.AddWithValue("@id", user.ID);
 
             try
             {

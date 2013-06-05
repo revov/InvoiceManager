@@ -20,6 +20,7 @@ using System.Windows.Media.Imaging;
 using InvoiceManager.Entities;
 using InvoiceManager.Repositories;
 using InvoiceManager.Services;
+using InvoiceManager.Commands;
 
 namespace InvoiceManager.Windows.UserControls
 {
@@ -28,25 +29,29 @@ namespace InvoiceManager.Windows.UserControls
 	/// </summary>
 	public partial class PartnersListControl : UserControl
 	{
-		private List<Partner> _partners = PartnerRepository.RetrieveAll();
-		public List<Partner> Partners
-		{
-			get { return _partners; }
+		public static readonly DependencyProperty PartnersProperty =
+			DependencyProperty.Register("Partners", typeof(List<Partner>), typeof(PartnersListControl),
+			                            new FrameworkPropertyMetadata());
+		
+		public List<Partner> Partners {
+			get { return (List<Partner>)GetValue(PartnersProperty); }
+			set { SetValue(PartnersProperty, value); }
 		}
 		public PartnersListControl()
 		{
+			//Initialize Partners
+			Partners = PartnerRepository.RetrieveAll();
+			
 			InitializeComponent();
-		}
-		
-		void This_Loaded(object sender, RoutedEventArgs e)
-		{
-			//TODO:Add commands!
-			#region Context menu and privilidges
+			
+			#region Context menu
 			Style style = new Style(typeof (ListViewItem));
+				
 				ContextMenu contextMenu = new ContextMenu();
+				
 					MenuItem newMenuItem = new MenuItem();
-					newMenuItem.IsEnabled = SecurityManager.CurrentSessionInfo.CurrentRole.WRITE_ACCESS;
 					newMenuItem.Header = "Нов";
+					newMenuItem.Command = PartnerCommands.NewPartner;
 					newMenuItem.Icon = new Image()
 					{
 						Source = new BitmapImage(new Uri("/Resources/new.png", UriKind.Relative)),
@@ -54,9 +59,19 @@ namespace InvoiceManager.Windows.UserControls
 						Height = 20
 					};
 				contextMenu.Items.Add(newMenuItem);
+				
 					MenuItem editMenuItem = new MenuItem();
-					editMenuItem.IsEnabled = SecurityManager.CurrentSessionInfo.CurrentRole.MODIFY_ACCESS;
 					editMenuItem.Header = "Редактирай";
+					editMenuItem.Command = PartnerCommands.EditPartner;
+					
+					//Bind the command property to the selected item
+					
+					Binding editBinding = new Binding();
+					editBinding.Source = PartnersListView;
+					editBinding.Path = new PropertyPath("SelectedItem");
+					editBinding.Mode = BindingMode.OneWay;
+					editMenuItem.SetBinding(MenuItem.CommandParameterProperty, editBinding);
+					
 					editMenuItem.Icon = new Image()
 					{
 						Source = new BitmapImage(new Uri("/Resources/Edit.png", UriKind.Relative)),
@@ -64,9 +79,19 @@ namespace InvoiceManager.Windows.UserControls
 						Height = 20
 					};
 				contextMenu.Items.Add(editMenuItem);
+				
 					MenuItem deleteMenuItem = new MenuItem();
 					deleteMenuItem.IsEnabled = SecurityManager.CurrentSessionInfo.CurrentRole.MODIFY_ACCESS;
 					deleteMenuItem.Header = "Изтрий";
+					deleteMenuItem.Command = PartnerCommands.DeletePartner;
+					
+					//Bind the command property to the selected item
+					Binding deleteBinding = new Binding();
+					deleteBinding.Source = PartnersListView;
+					deleteBinding.Path = new PropertyPath("SelectedItem");
+					deleteBinding.Mode = BindingMode.OneWay;
+					deleteMenuItem.SetBinding(MenuItem.CommandParameterProperty, deleteBinding);
+					
 					deleteMenuItem.Icon = new Image()
 					{
 						Source = new BitmapImage(new Uri("/Resources/Delete.png", UriKind.Relative)),
@@ -74,9 +99,22 @@ namespace InvoiceManager.Windows.UserControls
 						Height = 20
 					};
 				contextMenu.Items.Add(deleteMenuItem);
+				
 			style.Setters.Add(new Setter(ListViewItem.ContextMenuProperty, contextMenu));
 			Resources.Add(typeof (ListViewItem), style);
 			#endregion
 		}
+		
+		#region EventHandlers
+		void CloseButton_Click(object sender, RoutedEventArgs e)
+		{
+			ContentManager.RemoveFromParent(this);
+		}
+		
+		void RefreshButton_Click(object sender, RoutedEventArgs e)
+		{
+			Partners = PartnerRepository.RetrieveAll();
+		}
+		#endregion
 	}
 }
