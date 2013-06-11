@@ -40,7 +40,8 @@ namespace InvoiceManager.Windows.UserControls
 		public PartnersListControl()
 		{
 			//Initialize Partners
-			Partners = PartnerRepository.RetrieveAll();
+			IBaseRepository<Partner> partnerRepository = new PartnerRepository();
+			Partners = partnerRepository.RetrieveAll();
 			
 			InitializeComponent();
 			
@@ -113,7 +114,8 @@ namespace InvoiceManager.Windows.UserControls
 		
 		void RefreshButton_Click(object sender, RoutedEventArgs e)
 		{
-			Partners = PartnerRepository.RetrieveAll();
+			IBaseRepository<Partner> partnerRepository = new PartnerRepository();
+			Partners = partnerRepository.RetrieveAll();
 		}
 		#endregion
 	}

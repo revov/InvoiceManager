@@ -42,7 +42,8 @@ namespace InvoiceManager.Windows.UserControls
 					                         	POST_CODE = Int32.Parse(partnerForm.PostCodeField.Text),
 					                         	ADDITIONAL_INFO = partnerForm.AdditionalInfoField.Text
 					                         };
-					PartnerRepository.Create(partner);
+					IBaseRepository<Partner> partnerRepository = new PartnerRepository();
+					partnerRepository.Create(partner);
 					//If an exception is not thrown:
 					Logger.Log("Добавен контрагент " + partner.ID);
 					ContentManager.PrintStatus("Добавянето успешно");

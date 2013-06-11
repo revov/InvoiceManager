@@ -106,7 +106,8 @@ namespace InvoiceManager.Windows
 				return;
 			}
 			Partner partner = (Partner)e.Parameter;
-			PartnerRepository.Delete(partner.ID);
+			IBaseRepository<Partner> partnerRepository = new PartnerRepository();
+			partnerRepository.Delete(partner.ID);
 			Logger.Log("Изтрит контрагент " + partner.ID);
 			ContentManager.PrintStatus("Контрагентът беше изтрит успешно.");
 		}

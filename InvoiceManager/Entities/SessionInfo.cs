@@ -25,7 +25,10 @@ namespace InvoiceManager.Entities
         		{
 	        		_currentRole = RoleRepository.Retrieve(value.ROLE_ID);
 	        		if (value.SELLER_ID!="")
-	        			_currentCompany = PartnerRepository.Retrieve(value.SELLER_ID);
+	        		{
+	        			IBaseRepository<Partner> partnerRepository = new PartnerRepository();
+	        			_currentCompany = partnerRepository.Retrieve(value.SELLER_ID);
+	        		}
 	        		else _currentCompany = null;
         		}
         		else

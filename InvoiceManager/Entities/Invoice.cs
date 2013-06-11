@@ -5,8 +5,12 @@ namespace InvoiceManager.Entities
 	/// <summary>
 	/// An invoice contains information about its orders and parties.
 	/// </summary>
-	public class Invoice
+	public class Invoice : IBaseEntity
 	{
+		public object BaseID
+		{
+			get { return (object)ID; }
+		}
 		public string ID {get; set;}
 		public string SELLER_ID {get; set;}
 		public string CUSTOMER_ID {get; set;}

@@ -10,7 +10,7 @@ namespace InvoiceManager.Repositories
 	/// <summary>
 	/// Partners CRUD.
 	/// </summary>
-	public class PartnerRepository
+	public class PartnerRepository : IBaseRepository<Partner>
 	{
 		static private OleDbConnection conn;
 		static PartnerRepository()
@@ -21,7 +21,7 @@ namespace InvoiceManager.Repositories
 		/// <summary>
         /// Attempts to add a partner to the Acess database.
         /// </summary>
-        public static void Create(Partner partner)
+        public void Create(Partner partner)
         {
             const string statement = @"
                             insert into PARTNERS (
@@ -62,8 +62,10 @@ namespace InvoiceManager.Repositories
         /// <summary>
         /// Deletes a partner from the database. If there are invoices with the partner, the procedure cannot be completed.
         /// </summary>
-        public static void Delete(string id)
+        public void Delete(object baseId)
         {
+        	string id = (string)baseId;
+        	
             const string statement = "delete from PARTNERS where ID=@id";
             OleDbCommand cmd = new OleDbCommand(statement, conn);
 
@@ -83,7 +85,7 @@ namespace InvoiceManager.Repositories
         /// <summary>
         /// Attempts to edit an existing partner.
         /// </summary>
-        public static void Update(Partner partner)
+        public void Update(Partner partner)
         {
             const string statement = @"update PARTNERS
                                     set VAT_NUMBER=@vat_number, PARTNER_NAME=@partner_name, ADDRESS=@address, POST_CODE=@post_code, ADDITIONAL_INFO=@additional_info
@@ -111,8 +113,10 @@ namespace InvoiceManager.Repositories
         /// <summary>
         /// Gets a partner by ID.
         /// </summary>
-        public static Partner Retrieve(string id)
+        public Partner Retrieve(object baseId)
         {
+        	string id = (string)baseId;
+        	
             const string statement = "select * from PARTNERS where ID=@id";
             OleDbCommand cmd = new OleDbCommand(statement, conn);
             cmd.Parameters.AddWithValue("@id", id);
@@ -145,7 +149,7 @@ namespace InvoiceManager.Repositories
         /// Gets all partners from the database.
         /// </summary>
         /// <returns>List of partners.</returns>
-        public static List<Partner> RetrieveAll()
+        public List<Partner> RetrieveAll()
         {
         	const string statement = "select * from PARTNERS";
             OleDbCommand cmd = new OleDbCommand(statement, conn);

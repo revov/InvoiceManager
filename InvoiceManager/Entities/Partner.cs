@@ -5,8 +5,12 @@ namespace InvoiceManager.Entities
 	/// <summary>
 	/// Represents a customer or supplier account.
 	/// </summary>
-	public class Partner
+	public class Partner : IBaseEntity
 	{
+		public object BaseID
+		{
+			get { return (object)ID; }
+		}
 		public string ID {get; set;}
 		public string VAT_NUMBER {get; set;}
 		public string PARTNER_NAME {get; set;}

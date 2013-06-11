@@ -2,7 +2,7 @@
 using System.Windows.Input;
 
 namespace InvoiceManager.Commands
-{
+{//TODO:Commands should only be New, Edit and Delete and should be generic
 	public static class PartnerCommands
 	{
 		private static RoutedUICommand _newPartner;
