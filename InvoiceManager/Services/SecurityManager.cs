@@ -33,7 +33,8 @@ namespace InvoiceManager.Services
 			try
 			{
 				_currentSessionInfo = new SessionInfo();
-				CurrentSessionInfo.CurrentUser = UserRepository.Retrieve(username);
+				IRepository<User> userRepository = RepositoryFactory<User>.Initialize();
+				CurrentSessionInfo.CurrentUser = userRepository.Retrieve(username);
 				if (CurrentSessionInfo.CurrentUser.PASSWORD == CalculateSHA1(password))
 				{
 					Logger.Log("Вход в системата.");

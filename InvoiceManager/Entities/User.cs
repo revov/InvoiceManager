@@ -5,7 +5,7 @@ namespace InvoiceManager.Entities
 	/// <summary>
 	/// Represents a single User.
 	/// </summary>
-	public class User : IBaseEntity
+	public class User : IEntity
 	{
 		public object BaseID
 		{

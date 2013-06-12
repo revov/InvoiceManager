@@ -17,7 +17,7 @@ namespace InvoiceManager.Controller
 		/// <summary>
 		/// EntityRepository for direct access to the model
 		/// </summary>
-		IBaseRepository<IBaseEntity> Repository { get; set; }
+		IRepository<IEntity> Repository { get; set; }
 		/// <summary>
 		/// Call appropriate AddEntity Control (form)
 		/// </summary>
@@ -25,11 +25,11 @@ namespace InvoiceManager.Controller
 		/// <summary>
 		/// Call appropriate EditEntity Control (form)
 		/// </summary>
-		void Update(IBaseEntity entity);
+		void Update(IEntity entity);
 		/// <summary>
 		/// Call confirmation form
 		/// </summary>
-		void Delete(IBaseEntity entity);
+		void Delete(IEntity entity);
 		
 	}
 }

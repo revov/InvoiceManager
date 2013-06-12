@@ -5,7 +5,7 @@ namespace InvoiceManager.Entities
 	/// <summary>
 	/// Describes the access level of the user.
 	/// </summary>
-	public class Role : IBaseEntity
+	public class Role : IEntity
 	{
 		public object BaseID
 		{

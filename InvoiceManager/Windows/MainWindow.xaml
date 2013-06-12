@@ -31,7 +31,7 @@
 					<MenuItem Header="Прегледай всички"/>
 				</MenuItem>
 				<MenuItem Header="Контрагенти">
-					<MenuItem Name="NewPartner" Header="Нов" Command="commands:PartnerCommands.NewPartner"/>
+					<MenuItem Name="NewPartner" Header="Нов" Command="commands:InvoiceManagerCommands.New"/>
 					<MenuItem Name="BrowsePartners" Click="BrowsePartners_Click" Header="Прегледай всички"/>
 				</MenuItem>
 				<MenuItem Header="Фактури">

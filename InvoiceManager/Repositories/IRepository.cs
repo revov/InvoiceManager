@@ -12,9 +12,8 @@ namespace InvoiceManager.Repositories
 	/// <summary>
 	/// All repositories implement this interface.
 	/// </summary>
-	public interface IBaseRepository<T> where T : IBaseEntity
+	public interface IRepository<T> where T : IEntity
 	{
-		//TODO:!!!!! All repositories should implement IBaseRepository and other classes should instantiate their own repository objects
 		void Create(T entity);
 		T Retrieve(object baseID);
 		List<T> RetrieveAll();

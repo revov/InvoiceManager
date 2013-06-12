@@ -20,7 +20,7 @@ namespace InvoiceManager.Windows.UserControls
 	public partial class DataBrowserControl : UserControl
 	{
 		public IEntityController Controller { get; private set; }
-		public List<IBaseEntity> Items;
+		public List<IEntity> Items;
 		
 		public DataBrowserControl(IEntityController controller)
 		{

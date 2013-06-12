@@ -26,21 +26,21 @@ namespace InvoiceManager.Windows
 			this.DataContext = sessionInfo;
 			
 			#region Command bindings
-			//New Partner command binding
-			CommandBinding newPartnerBinding = new CommandBinding(PartnerCommands.NewPartner);
-			newPartnerBinding.Executed += NewPartnerCommand_Executed;
-			newPartnerBinding.CanExecute += NewPartnerCommand_CanExecute;
-			CommandBindings.Add(newPartnerBinding);
-			//Edit Partner command binding
-			CommandBinding editPartnerBinding = new CommandBinding(PartnerCommands.EditPartner);
-			editPartnerBinding.Executed += EditPartnerCommand_Executed;
-			editPartnerBinding.CanExecute += EditPartnerCommand_CanExecute;
-			CommandBindings.Add(editPartnerBinding);
-			//Delete Partner command binding
-			CommandBinding deletePartnerBinding = new CommandBinding(PartnerCommands.DeletePartner);
-			deletePartnerBinding.Executed += DeletePartnerCommand_Executed;
-			deletePartnerBinding.CanExecute += DeletePartnerCommand_CanExecute;
-			CommandBindings.Add(deletePartnerBinding);
+			//New command binding
+			CommandBinding newCommandBinding = new CommandBinding(InvoiceManagerCommands.New);
+			newCommandBinding.Executed += NewCommand_Executed;
+			newCommandBinding.CanExecute += NewCommand_CanExecute;
+			CommandBindings.Add(newCommandBinding);
+			//Edit command binding
+			CommandBinding editCommandBinding = new CommandBinding(InvoiceManagerCommands.Edit);
+			editCommandBinding.Executed += EditCommand_Executed;
+			editCommandBinding.CanExecute += EditCommand_CanExecute;
+			CommandBindings.Add(editCommandBinding);
+			//Delete command binding
+			CommandBinding deleteCommandBinding = new CommandBinding(InvoiceManagerCommands.Delete);
+			deleteCommandBinding.Executed += DeleteCommand_Executed;
+			deleteCommandBinding.CanExecute += DeleteCommand_CanExecute;
+			CommandBindings.Add(deleteCommandBinding);
 			#endregion
 			
 			InitializeComponent();
@@ -65,54 +65,54 @@ namespace InvoiceManager.Windows
 		}
 		
 		#region Event handlers
-		
-		#region New partner command
-		void NewPartnerCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+		//TODO:URGENT! Make the command handlers generic through reflection or preferably throuh interaction with the EntityController.
+		#region New command
+		void NewCommand_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
 			AddPartnerControl addPartnerControl = new AddPartnerControl();
 			ContentManager.ShowContent(addPartnerControl);
 		}
 		
-		void NewPartnerCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		void NewCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = SecurityManager.CurrentSessionInfo.CurrentRole.WRITE_ACCESS;
 		}
 		#endregion
 		
-		#region Edit partner command
-		void EditPartnerCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+		#region Edit command
+		void EditCommand_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
 			if (e.Parameter == null)
 			{
-				ContentManager.PrintStatus("TODO: Не сте избрали контрагент за редактиране.", Brushes.Red);
+				ContentManager.PrintStatus("TODO: Не сте избрали елемент за редактиране.", Brushes.Red);
 				return;
 			}
 			EditPartnerControl editPartnerControl = new EditPartnerControl((Partner)e.Parameter);
 			ContentManager.ShowContent(editPartnerControl);
 		}
 		
-		void EditPartnerCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		void EditCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = SecurityManager.CurrentSessionInfo.CurrentRole.MODIFY_ACCESS;
 		}
 		#endregion
 		
-		#region Delete partner command
-		void DeletePartnerCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+		#region Delete command
+		void DeleteCommand_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
 			if (e.Parameter == null)
 			{
-				ContentManager.PrintStatus("TODO: Не сте избрали контрагент за изтриване.", Brushes.Red);
+				ContentManager.PrintStatus("TODO: Не сте избрали елемент за изтриване.", Brushes.Red);
 				return;
 			}
 			Partner partner = (Partner)e.Parameter;
-			IBaseRepository<Partner> partnerRepository = new PartnerRepository();
+			IRepository<Partner> partnerRepository = RepositoryFactory<Partner>.Initialize();
 			partnerRepository.Delete(partner.ID);
 			Logger.Log("Изтрит контрагент " + partner.ID);
 			ContentManager.PrintStatus("Контрагентът беше изтрит успешно.");
 		}
 		
-		void DeletePartnerCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		void DeleteCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
 			e.CanExecute = SecurityManager.CurrentSessionInfo.CurrentRole.MODIFY_ACCESS;
 		}

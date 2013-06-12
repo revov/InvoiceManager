@@ -10,7 +10,7 @@ namespace InvoiceManager.Repositories
 	/// <summary>
 	/// Parties CRUD.
 	/// </summary>
-	public class ProductRepository
+	public class ProductRepository : IRepository<Product>
 	{
 		static private OleDbConnection conn;
 		static ProductRepository()
@@ -21,7 +21,7 @@ namespace InvoiceManager.Repositories
 		/// <summary>
         /// Attempts to add a product to the Acess database.
         /// </summary>
-        public static void Create(Product product)
+        public void Create(Product product)
         {
             const string statement = @"
                             insert into PRODUCTS (
@@ -56,8 +56,10 @@ namespace InvoiceManager.Repositories
         /// <summary>
         /// Deletes a product from the database. If there are orders with the product, the procedure cannot be completed.
         /// </summary>
-        public static void Delete(string id)
+        public void Delete(object baseId)
         {
+        	ulong id = (ulong)baseId;
+        	
             const string statement = "delete from PRODUCTS where ID=@id";
             OleDbCommand cmd = new OleDbCommand(statement, conn);
 
@@ -77,7 +79,7 @@ namespace InvoiceManager.Repositories
         /// <summary>
         /// Attempts to edit an existing product.
         /// </summary>
-        public static void Update(Product product)
+        public void Update(Product product)
         {
             const string statement = @"update PRODUCTS
                                     set PRODUCT_NAME=@product_name, MEASUREMENT_UNIT=@measurement_unit, PRICE=@price
@@ -103,8 +105,10 @@ namespace InvoiceManager.Repositories
         /// <summary>
         /// Gets a product by ID.
         /// </summary>
-        public static Product Retrieve(string id)
+        public Product Retrieve(object baseId)
         {
+        	ulong id = (ulong)baseId;
+        	
             const string statement = "select * from PRODUCTS where ID=@id";
             OleDbCommand cmd = new OleDbCommand(statement, conn);
             cmd.Parameters.AddWithValue("@id", id);
@@ -118,7 +122,7 @@ namespace InvoiceManager.Repositories
                 dataReader.Read();
                 return new Product
                                 {
-                					ID = Convert.ToInt64(dataReader["PRICE"]),
+                					ID = ulong.Parse(dataReader["PRICE"].ToString()),
                                     PRODUCT_NAME = dataReader["PRODUCT_NAME"].ToString(),
                                     MEASUREMENT_UNIT = dataReader["MEASUREMENT_UNIT"].ToString(),
                                     PRICE = Convert.ToInt32(dataReader["PRICE"])
@@ -135,7 +139,7 @@ namespace InvoiceManager.Repositories
         /// Gets all products from the database.
         /// </summary>
         /// <returns>List of partners.</returns>
-        public static List<Product> RetrieveAll()
+        public List<Product> RetrieveAll()
         {
         	const string statement = "select * from PRODUCTS";
             OleDbCommand cmd = new OleDbCommand(statement, conn);
@@ -153,7 +157,7 @@ namespace InvoiceManager.Repositories
                 	{
                 		products.Add(new Product
                 		             {
-                		             	ID = Convert.ToInt64(dataReader["PRICE"]),
+                		             	ID = ulong.Parse(dataReader["PRICE"].ToString()),
 	                                    PRODUCT_NAME = dataReader["PRODUCT_NAME"].ToString(),
 	                                    MEASUREMENT_UNIT = dataReader["MEASUREMENT_UNIT"].ToString(),
 	                                    PRICE = Convert.ToInt32(dataReader["PRICE"])

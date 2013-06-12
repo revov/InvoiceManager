@@ -10,7 +10,7 @@ namespace InvoiceManager.Entities
 	/// <summary>
 	/// All entities implement this interface.
 	/// </summary>
-	public interface IBaseEntity
+	public interface IEntity
 	{
 		object BaseID { get; }
 	}

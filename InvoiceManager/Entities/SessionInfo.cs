@@ -1,5 +1,6 @@
 ﻿using System;
 using InvoiceManager.Repositories;
+using InvoiceManager.Services;
 
 namespace InvoiceManager.Entities
 {
@@ -26,7 +27,7 @@ namespace InvoiceManager.Entities
 	        		_currentRole = RoleRepository.Retrieve(value.ROLE_ID);
 	        		if (value.SELLER_ID!="")
 	        		{
-	        			IBaseRepository<Partner> partnerRepository = new PartnerRepository();
+	        			IRepository<Partner> partnerRepository = RepositoryFactory<Partner>.Initialize();
 	        			_currentCompany = partnerRepository.Retrieve(value.SELLER_ID);
 	        		}
 	        		else _currentCompany = null;

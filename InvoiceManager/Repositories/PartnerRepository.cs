@@ -10,7 +10,7 @@ namespace InvoiceManager.Repositories
 	/// <summary>
 	/// Partners CRUD.
 	/// </summary>
-	public class PartnerRepository : IBaseRepository<Partner>
+	public class PartnerRepository : IRepository<Partner>
 	{
 		static private OleDbConnection conn;
 		static PartnerRepository()
@@ -134,7 +134,7 @@ namespace InvoiceManager.Repositories
                                     VAT_NUMBER = dataReader["VAT_NUMBER"].ToString(),
                                     PARTNER_NAME = dataReader["PARTNER_NAME"].ToString(),
                                     ADDRESS = dataReader["ADDRESS"].ToString(),
-                                    POST_CODE = Convert.ToInt32(dataReader["POST_CODE"]),
+                                    POST_CODE = Int32.Parse(dataReader["POST_CODE"].ToString()),
                                     ADDITIONAL_INFO = dataReader["ADDITIONAL_INFO"].ToString()
                                 };
             }
@@ -171,7 +171,7 @@ namespace InvoiceManager.Repositories
 	                                    VAT_NUMBER = dataReader["VAT_NUMBER"].ToString(),
 	                                    PARTNER_NAME = dataReader["PARTNER_NAME"].ToString(),
 	                                    ADDRESS = dataReader["ADDRESS"].ToString(),
-	                                    POST_CODE = Convert.ToInt32(dataReader["POST_CODE"]),
+	                                    POST_CODE = Int32.Parse(dataReader["POST_CODE"].ToString()),
 	                                    ADDITIONAL_INFO = dataReader["ADDITIONAL_INFO"].ToString()
                 		             });
                 	}

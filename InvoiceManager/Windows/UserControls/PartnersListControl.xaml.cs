@@ -40,65 +40,64 @@ namespace InvoiceManager.Windows.UserControls
 		public PartnersListControl()
 		{
 			//Initialize Partners
-			IBaseRepository<Partner> partnerRepository = new PartnerRepository();
+			IRepository<Partner> partnerRepository = RepositoryFactory<Partner>.Initialize();
 			Partners = partnerRepository.RetrieveAll();
 			
 			InitializeComponent();
+			
+			//Create binding to the currently selected element
+			Binding selectedElementBinding = new Binding()
+				{
+					Source = PartnersListView,
+					Path = new PropertyPath("SelectedItem"),
+					Mode = BindingMode.TwoWay
+				};
 			
 			#region Context menu
 			Style style = new Style(typeof (ListViewItem));
 				
 				ContextMenu contextMenu = new ContextMenu();
 				
-					MenuItem newMenuItem = new MenuItem();
-					newMenuItem.Header = "Нов";
-					newMenuItem.Command = PartnerCommands.NewPartner;
-					newMenuItem.Icon = new Image()
-					{
-						Source = new BitmapImage(new Uri("/Resources/new.png", UriKind.Relative)),
-						Width = 20,
-						Height = 20
-					};
+					MenuItem newMenuItem = new MenuItem()
+						{
+							Header = "Нов",
+							Command = InvoiceManagerCommands.New,
+							Icon = new Image()
+								{
+									Source = new BitmapImage(new Uri("/Resources/new.png", UriKind.Relative)),
+									Width = 20,
+									Height = 20
+								}
+						};
+					newMenuItem.SetBinding(MenuItem.CommandParameterProperty, selectedElementBinding);
 				contextMenu.Items.Add(newMenuItem);
 				
-					MenuItem editMenuItem = new MenuItem();
-					editMenuItem.Header = "Редактирай";
-					editMenuItem.Command = PartnerCommands.EditPartner;
-					
-					//Bind the command property to the selected item
-					
-					Binding editBinding = new Binding();
-					editBinding.Source = PartnersListView;
-					editBinding.Path = new PropertyPath("SelectedItem");
-					editBinding.Mode = BindingMode.OneWay;
-					editMenuItem.SetBinding(MenuItem.CommandParameterProperty, editBinding);
-					
-					editMenuItem.Icon = new Image()
-					{
-						Source = new BitmapImage(new Uri("/Resources/Edit.png", UriKind.Relative)),
-						Width = 20,
-						Height = 20
-					};
+					MenuItem editMenuItem = new MenuItem()
+						{
+							Header = "Редактирай",
+							Command = InvoiceManagerCommands.Edit,
+							Icon = new Image()
+								{
+									Source = new BitmapImage(new Uri("/Resources/Edit.png", UriKind.Relative)),
+									Width = 20,
+									Height = 20
+								}
+						};
+					editMenuItem.SetBinding(MenuItem.CommandParameterProperty, selectedElementBinding);
 				contextMenu.Items.Add(editMenuItem);
 				
-					MenuItem deleteMenuItem = new MenuItem();
-					deleteMenuItem.IsEnabled = SecurityManager.CurrentSessionInfo.CurrentRole.MODIFY_ACCESS;
-					deleteMenuItem.Header = "Изтрий";
-					deleteMenuItem.Command = PartnerCommands.DeletePartner;
-					
-					//Bind the command property to the selected item
-					Binding deleteBinding = new Binding();
-					deleteBinding.Source = PartnersListView;
-					deleteBinding.Path = new PropertyPath("SelectedItem");
-					deleteBinding.Mode = BindingMode.OneWay;
-					deleteMenuItem.SetBinding(MenuItem.CommandParameterProperty, deleteBinding);
-					
-					deleteMenuItem.Icon = new Image()
-					{
-						Source = new BitmapImage(new Uri("/Resources/Delete.png", UriKind.Relative)),
-						Width = 20,
-						Height = 20
-					};
+					MenuItem deleteMenuItem = new MenuItem()
+						{
+							Header = "Изтрий",
+							Command = InvoiceManagerCommands.Delete,
+							Icon = new Image()
+								{
+									Source = new BitmapImage(new Uri("/Resources/Delete.png", UriKind.Relative)),
+									Width = 20,
+									Height = 20
+								}
+						};
+					deleteMenuItem.SetBinding(MenuItem.CommandParameterProperty, selectedElementBinding);
 				contextMenu.Items.Add(deleteMenuItem);
 				
 			style.Setters.Add(new Setter(ListViewItem.ContextMenuProperty, contextMenu));
@@ -114,7 +113,7 @@ namespace InvoiceManager.Windows.UserControls
 		
 		void RefreshButton_Click(object sender, RoutedEventArgs e)
 		{
-			IBaseRepository<Partner> partnerRepository = new PartnerRepository();
+			IRepository<Partner> partnerRepository = RepositoryFactory<Partner>.Initialize();
 			Partners = partnerRepository.RetrieveAll();
 		}
 		#endregion

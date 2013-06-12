@@ -10,7 +10,7 @@ namespace InvoiceManager.Repositories
 	/// <summary>
 	/// Users CRUD.
 	/// </summary>
-	public class UserRepository
+	public class UserRepository : IRepository<User>
 	{
 		static private OleDbConnection conn;
 		static UserRepository()
@@ -21,7 +21,7 @@ namespace InvoiceManager.Repositories
 		/// <summary>
         /// Attempts to add an user to the Acess database.
         /// </summary>
-        public static void Create(User user)
+        public void Create(User user)
         {
             const string statement = @"
                             insert into USERS (
@@ -56,8 +56,10 @@ namespace InvoiceManager.Repositories
         /// <summary>
         /// Attempts to delete an user from the database.
         /// </summary>
-        public static void Delete(string id)
+        public void Delete(object baseId)
         {
+        	string id = (string)baseId;
+        	
             const string statement = "delete from USERS where ID=@id";
             OleDbCommand cmd = new OleDbCommand(statement, conn);
 
@@ -77,7 +79,7 @@ namespace InvoiceManager.Repositories
         /// <summary>
         /// Attempts to edit an existing user.
         /// </summary>
-        public static void Update(User user)
+        public void Update(User user)
         {
             const string statement = @"update USERS
                                     set PASSWORD=@password, ROLE_ID=@role_id, SELLER_ID=@seller_id
@@ -103,8 +105,10 @@ namespace InvoiceManager.Repositories
         /// <summary>
         /// Gets an user by ID.
         /// </summary>
-        public static User Retrieve(string id)
+        public User Retrieve(object baseId)
         {
+        	string id = (string)baseId;
+        	
             const string statement = "select * from USERS where ID=@id";
             OleDbCommand cmd = new OleDbCommand(statement, conn);
             cmd.Parameters.AddWithValue("@id", id);
@@ -135,7 +139,7 @@ namespace InvoiceManager.Repositories
         /// Gets all users from the database.
         /// </summary>
         /// <returns>List of users.</returns>
-        public static List<User> RetrieveAll()
+        public List<User> RetrieveAll()
         {
         	const string statement = "select * from USERS";
             OleDbCommand cmd = new OleDbCommand(statement, conn);

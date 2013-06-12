@@ -10,7 +10,7 @@ namespace InvoiceManager.Repositories
 	/// <summary>
 	/// Invoices CRUD.
 	/// </summary>
-	public class InvoiceRepository
+	public class InvoiceRepository : IRepository<Invoice>
 	{
 		static private OleDbConnection conn;
 		static InvoiceRepository()
@@ -21,7 +21,7 @@ namespace InvoiceManager.Repositories
 		/// <summary>
         /// Attempts to add a partner to the Acess database.
         /// </summary>
-        public static void Create(Invoice invoice)
+        public void Create(Invoice invoice)
         {
             const string statement = @"
                             insert into INVOICES (
@@ -63,8 +63,10 @@ namespace InvoiceManager.Repositories
         /// USE WITH CAUTION!
         /// Deletes an invoice from the database. If there are orders in this invoice, the procedure cannot be completed.
         /// </summary>
-        public static void Delete(string id)
+        public void Delete(object baseId)
         {
+        	string id = (string)baseId;
+        	
             const string statement = "delete from INVOICES where ID=@id";
             OleDbCommand cmd = new OleDbCommand(statement, conn);
 
@@ -84,7 +86,7 @@ namespace InvoiceManager.Repositories
         /// <summary>
         /// Attempts to edit an existing invoice.
         /// </summary>
-        public static void Update(Invoice invoice)
+        public void Update(Invoice invoice)
         {
             const string statement = @"update INVOICES
                                     set SELLER_ID=@seller_id, CUSTOMER_ID=@customer_id, INVOICE_DATE=@invoice_date, FISCAL_EVENT_DATE=@fiscal_event_date, PAYMENT_COMPLETED=@payment_completed
@@ -112,8 +114,10 @@ namespace InvoiceManager.Repositories
         /// <summary>
         /// Gets an invoice by ID.
         /// </summary>
-        public static Invoice Retrieve(string id)
+        public Invoice Retrieve(object baseId)
         {
+        	string id = (string)baseId;
+        	
             const string statement = "select * from INVOICES where ID=@id";
             OleDbCommand cmd = new OleDbCommand(statement, conn);
             cmd.Parameters.AddWithValue("@id", id);
@@ -146,7 +150,7 @@ namespace InvoiceManager.Repositories
         /// Gets all invoices from the database.
         /// </summary>
         /// <returns>List of invoices.</returns>
-        public static List<Invoice> RetrieveAll()
+        public List<Invoice> RetrieveAll()
         {
         	const string statement = "select * from PARTNERS";
             OleDbCommand cmd = new OleDbCommand(statement, conn);

@@ -10,7 +10,7 @@ namespace InvoiceManager.Repositories
 	/// <summary>
 	/// Orders CRUD.
 	/// </summary>
-	public class OrderRepository
+	public class OrderRepository : IRepository<Order>
 	{
 		static private OleDbConnection conn;
 		static OrderRepository()
@@ -21,7 +21,7 @@ namespace InvoiceManager.Repositories
 		/// <summary>
         /// Attempts to add an order to the Acess database.
         /// </summary>
-        public static void Create(Order order)
+        public void Create(Order order)
         {
             const string statement = @"
                             insert into ORDERS (
@@ -60,8 +60,11 @@ namespace InvoiceManager.Repositories
         /// USE WITH CAUTION!
         /// Deletes an order from the database. If there are invoices or products with the order, the procedure cannot be completed.
         /// </summary>
-        public static void Delete(string invoice_id, string product_id)
+        public void Delete(object baseId)
         {
+        	string invoice_id = (string)(((object[])baseId)[0]);
+        	ulong product_id = (ulong)(((object[])baseId)[1]);
+        	
             const string statement = "delete from ORDERS where INVOICE_ID=@invoice_id and PRODUCT_ID=@product_id";
             OleDbCommand cmd = new OleDbCommand(statement, conn);
 
@@ -82,7 +85,7 @@ namespace InvoiceManager.Repositories
         /// <summary>
         /// Attempts to edit an existing order.
         /// </summary>
-        public static void Update(Order order)
+        public void Update(Order order)
         {
             const string statement = @"update ORDERS
                                     set QUANTITY=@quantity, VAT=@vat, DISCOUNT=@discount
@@ -105,12 +108,15 @@ namespace InvoiceManager.Repositories
                 conn.Close();
             }
         }
-//TODO:Different method signiture for Retreive (composite id)
+
         /// <summary>
         /// Gets an order by ID.
         /// </summary>
-        public static Order Retrieve(string invoice_id, string product_id)
+        public Order Retrieve(object baseId)
         {
+        	string invoice_id = (string)(((object[])baseId)[0]);
+        	ulong product_id = (ulong)(((object[])baseId)[1]);
+        	
             const string statement = "select * from ORDERS where INVOICE_ID=@invoice_id and PRODUCT_ID=@product_id";
             OleDbCommand cmd = new OleDbCommand(statement, conn);
             cmd.Parameters.AddWithValue("@invoice_id", invoice_id);
@@ -126,10 +132,10 @@ namespace InvoiceManager.Repositories
                 return new Order
                                 {
                 					INVOICE_ID = dataReader["INVOICE_ID"].ToString(),
-                					PRODUCT_ID = Convert.ToInt64(dataReader["PRODUCT_ID"]),
-                					QUANTITY = Convert.ToDouble(dataReader["QUANTITY"]),
-                					VAT = Convert.ToDouble(dataReader["VAT"]),
-                                    DISCOUNT = Convert.ToDouble(dataReader["DISCOUNT"])
+                					PRODUCT_ID = ulong.Parse(dataReader["PRODUCT_ID"].ToString()),
+                					QUANTITY = double.Parse(dataReader["QUANTITY"].ToString()),
+                					VAT = double.Parse(dataReader["VAT"].ToString()),
+                                    DISCOUNT = double.Parse(dataReader["DISCOUNT"].ToString())
                                 };
             }
             finally
@@ -143,7 +149,7 @@ namespace InvoiceManager.Repositories
         /// Gets all orders from the database.
         /// </summary>
         /// <returns>List of orders.</returns>
-        public static List<Order> RetrieveAll()
+        public List<Order> RetrieveAll()
         {
         	const string statement = "select * from ORDERS";
             OleDbCommand cmd = new OleDbCommand(statement, conn);
@@ -162,10 +168,10 @@ namespace InvoiceManager.Repositories
                 		orders.Add(new Order
                 		             {
                 		             	INVOICE_ID = dataReader["INVOICE_ID"].ToString(),
-	                					PRODUCT_ID = Convert.ToInt64(dataReader["PRODUCT_ID"]),
-	                					QUANTITY = Convert.ToDouble(dataReader["QUANTITY"]),
-	                					VAT = Convert.ToDouble(dataReader["VAT"]),
-	                                    DISCOUNT = Convert.ToDouble(dataReader["DISCOUNT"])
+	                					PRODUCT_ID = ulong.Parse(dataReader["PRODUCT_ID"].ToString()),
+	                					QUANTITY = double.Parse(dataReader["QUANTITY"].ToString()),
+	                					VAT = double.Parse(dataReader["VAT"].ToString()),
+	                                    DISCOUNT = double.Parse(dataReader["DISCOUNT"].ToString())
                 		             });
                 	}
                 	return orders;
