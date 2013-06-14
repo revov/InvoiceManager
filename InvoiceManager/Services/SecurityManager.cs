@@ -48,6 +48,7 @@ namespace InvoiceManager.Services
 			}
 			catch (InvalidOperationException)
 			{
+				_currentSessionInfo = null;
 				return false;
 			}
 		}

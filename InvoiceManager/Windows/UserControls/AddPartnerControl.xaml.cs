@@ -58,7 +58,7 @@ namespace InvoiceManager.Windows.UserControls
 					ContentManager.PrintStatus(ex.Message, Brushes.Red);
 				}
 			}
-			else partnerForm.IdField.Focus();
+			else partnerForm.FocusFirstField();
 		}
 		
 		protected void CancelPartnerButton_Click(object sender, RoutedEventArgs e)

@@ -65,12 +65,12 @@ namespace InvoiceManager.Windows
 		}
 		
 		#region Event handlers
-		//TODO:URGENT! Make the command handlers generic through reflection or preferably throuh interaction with the EntityController.
+		//TODO:URGENT! Make the command handlers generic through reflection or preferably through interaction with the EntityController.
 		#region New command
 		void NewCommand_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
-			AddPartnerControl addPartnerControl = new AddPartnerControl();
-			ContentManager.ShowContent(addPartnerControl);
+			AddControl addControl = new AddControl((IForm)(new PartnerForm()));
+			ContentManager.ShowContent(addControl);
 		}
 		
 		void NewCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)

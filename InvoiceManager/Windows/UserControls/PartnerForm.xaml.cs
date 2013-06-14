@@ -1,23 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
+
+using InvoiceManager.Entities;
 
 namespace InvoiceManager.Windows.UserControls
 {
 	/// <summary>
 	/// Interaction logic for PartnerForm.xaml
 	/// </summary>
-	public partial class PartnerForm : UserControl
+	public partial class PartnerForm : UserControl, IForm
 	{
 		public PartnerForm()
 		{
+			InitializeComponent();
+		}
+		
+		public PartnerForm(Partner partner)
+		{
+			//populate the form
+			IdField.Text = partner.ID;
+			IdField.IsEnabled = false;
+			VatNField.Text = partner.VAT_NUMBER;
+			NameField.Text = partner.PARTNER_NAME;
+			AddressField.Text = partner.ADDRESS;
+			PostCodeField.Text = partner.POST_CODE.ToString();
+			AdditionalInfoField.Text = partner.ADDITIONAL_INFO;
 			InitializeComponent();
 		}
 		
@@ -126,9 +135,38 @@ namespace InvoiceManager.Windows.UserControls
 			return returnValue;
 		}
 		
+		public IEntity Hydrate()
+		{
+			FiltrateForm();
+			if (ValidateForm())
+			{
+				return new Partner()
+				{
+	             	ID = IdField.Text,
+	             	VAT_NUMBER = VatNField.Text,
+	             	PARTNER_NAME = NameField.Text,
+	             	ADDRESS = AddressField.Text,
+	             	POST_CODE = Int32.Parse(PostCodeField.Text),
+	             	ADDITIONAL_INFO = AdditionalInfoField.Text
+				}
+				as IEntity;
+			}
+			else
+			{
+				FocusFirstField();
+				throw new ValidationException("PartnerForm has some invalid fields.");
+			}
+		}
+		
+		public void FocusFirstField()
+		{
+			IdField.Focus();
+		}
+		
 		protected void PartnerForm_Loaded(object sender, RoutedEventArgs e)
 		{
 			IdField.Focus();
 		}
+		
 	}
 }

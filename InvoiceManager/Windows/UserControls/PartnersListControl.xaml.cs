@@ -33,7 +33,8 @@ namespace InvoiceManager.Windows.UserControls
 			DependencyProperty.Register("Partners", typeof(List<Partner>), typeof(PartnersListControl),
 			                            new FrameworkPropertyMetadata());
 		
-		public List<Partner> Partners {
+		public List<Partner> Partners
+		{
 			get { return (List<Partner>)GetValue(PartnersProperty); }
 			set { SetValue(PartnersProperty, value); }
 		}
@@ -50,7 +51,7 @@ namespace InvoiceManager.Windows.UserControls
 				{
 					Source = PartnersListView,
 					Path = new PropertyPath("SelectedItem"),
-					Mode = BindingMode.TwoWay
+					Mode = BindingMode.OneWay
 				};
 			
 			#region Context menu

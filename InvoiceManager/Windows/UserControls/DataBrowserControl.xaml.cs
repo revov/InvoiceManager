@@ -19,15 +19,24 @@ namespace InvoiceManager.Windows.UserControls
 	/// </summary>
 	public partial class DataBrowserControl : UserControl
 	{
-		public IEntityController Controller { get; private set; }
-		public List<IEntity> Items;
+		public static readonly DependencyProperty ItemsProperty =
+			DependencyProperty.Register("Items", typeof(List<IEntity>), typeof(DataBrowserControl),
+			                            new FrameworkPropertyMetadata());
 		
-		public DataBrowserControl(IEntityController controller)
+		public List<IEntity> Items
+		{
+			get { return (List<IEntity>)GetValue(ItemsProperty); }
+			set { SetValue(ItemsProperty, value); }
+		}
+		
+		public IEntityController<IEntity> Controller { get; private set; }
+		
+		public DataBrowserControl(IEntityController<IEntity> controller)
 		{
 			if (controller == null)
-				throw new ArgumentNullException("IEntityController cannot be null");
+				throw new ArgumentNullException("IEntityController<T> cannot be null");
 			this.Controller = controller;
-			Items = Controller.Repository.RetrieveAll();
+			Items = controller.GetDataSource();
 			//TODO:mapping with column names
 			InitializeComponent();
 		}

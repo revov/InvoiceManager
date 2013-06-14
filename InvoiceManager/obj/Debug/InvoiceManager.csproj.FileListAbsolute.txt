@@ -25,3 +25,7 @@ C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\
 C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\PartnerForm.g.cs
 C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\DataBrowserControl.baml
 C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\DataBrowserControl.g.cs
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\AddControl.g.cs
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\AddControl.baml
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\EditControl.baml
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\EditControl.g.cs

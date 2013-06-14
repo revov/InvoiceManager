@@ -4,6 +4,10 @@
  * Time: 23:38 ч.
  */
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows;
+
 using InvoiceManager.Entities;
 using InvoiceManager.Repositories;
 
@@ -12,24 +16,38 @@ namespace InvoiceManager.Controller
 	/// <summary>
 	/// Defines members for an entity controller used to create an abstraction layer over repositories/entities.
 	/// </summary>
-	public interface IEntityController
+	public interface IEntityController<T> where T : IEntity
 	{
 		/// <summary>
-		/// EntityRepository for direct access to the model
+		/// Represents mapping between column headers and property names.
 		/// </summary>
-		IRepository<IEntity> Repository { get; set; }
+		Dictionary<string, string> Mapping { get; }
+		
 		/// <summary>
-		/// Call appropriate AddEntity Control (form)
+		/// Returns a collection of items
 		/// </summary>
-		void Create();
+		List<T> GetDataSource();
+		
 		/// <summary>
-		/// Call appropriate EditEntity Control (form)
+		/// Represents the currently selected item in the list.
 		/// </summary>
-		void Update(IEntity entity);
+		T SelectedItem { get; set; }
+		
+		/// <summary>
+		/// Call appropriate AddEntity Control through FormFactory
+		/// </summary>
+		void CreateForm();
+		/// <summary>
+		/// Call appropriate EditEntity Control through FormFactory
+		/// </summary>
+		void UpdateForm(T entity);
 		/// <summary>
 		/// Call confirmation form
 		/// </summary>
-		void Delete(IEntity entity);
+		void DeleteForm(T entity);
 		
+		void Create(T entity);
+		void Update(T entity);
+		void Delete(T entity);
 	}
 }
