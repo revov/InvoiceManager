@@ -18,7 +18,7 @@ namespace InvoiceManager.Windows.UserControls
 	{
 		void FiltrateForm();
 		bool ValidateForm();
-		IEntity Hydrate();
+		bool Persist();
 		void FocusFirstField();
 	}
 }

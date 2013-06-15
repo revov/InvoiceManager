@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 
 using InvoiceManager.Commands;
+using InvoiceManager.Controller;
 using InvoiceManager.Entities;
 using InvoiceManager.Repositories;
 using InvoiceManager.Services;
@@ -49,6 +50,7 @@ namespace InvoiceManager.Windows
 		
 		public void PrintStatus(string message)
 		{
+			StatusBarMessage.Foreground = Brushes.Black;
 			StatusBarMessage.Text = message;
 		}
 		
@@ -65,12 +67,17 @@ namespace InvoiceManager.Windows
 		}
 		
 		#region Event handlers
-		//TODO:URGENT! Make the command handlers generic through reflection or preferably through interaction with the EntityController.
+		
 		#region New command
 		void NewCommand_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
-			AddControl addControl = new AddControl((IForm)(new PartnerForm()));
-			ContentManager.ShowContent(addControl);
+			if (e.Parameter == null)
+			{
+				ContentManager.PrintStatus("TODO: Не сте избрали какво искате да добавите.", Brushes.Red);
+				return;
+			}
+			IEntityController controller = (IEntityController)e.Parameter;
+			controller.CreateForm();
 		}
 		
 		void NewCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -87,8 +94,8 @@ namespace InvoiceManager.Windows
 				ContentManager.PrintStatus("TODO: Не сте избрали елемент за редактиране.", Brushes.Red);
 				return;
 			}
-			EditPartnerControl editPartnerControl = new EditPartnerControl((Partner)e.Parameter);
-			ContentManager.ShowContent(editPartnerControl);
+			IEntityController controller = (IEntityController)e.Parameter;
+			controller.UpdateForm();
 		}
 		
 		void EditCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -105,11 +112,8 @@ namespace InvoiceManager.Windows
 				ContentManager.PrintStatus("TODO: Не сте избрали елемент за изтриване.", Brushes.Red);
 				return;
 			}
-			Partner partner = (Partner)e.Parameter;
-			IRepository<Partner> partnerRepository = RepositoryFactory<Partner>.Initialize();
-			partnerRepository.Delete(partner.ID);
-			Logger.Log("Изтрит контрагент " + partner.ID);
-			ContentManager.PrintStatus("Контрагентът беше изтрит успешно.");
+			IEntityController controller = (IEntityController)e.Parameter;
+			controller.DeleteForm();
 		}
 		
 		void DeleteCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -137,14 +141,18 @@ namespace InvoiceManager.Windows
 		
 		void BrowsePartners_Click(object sender, RoutedEventArgs e)
 		{
-			PartnersListControl partnerListControl = new PartnersListControl();
-			ContentManager.ShowContent(partnerListControl);
+			ContentManager.ShowContent(new DataBrowserControl(PartnerController.Instance));
 		}
 		
 		void StatusBarMessage_MouseDown(object sender, MouseButtonEventArgs e)
 		{
 			if (StatusBarMessage.Text!="")
 				MessageBox.Show(StatusBarMessage.Text, "Съобщение в статусбара", MessageBoxButton.OK);
+		}
+		
+		void BrowseUsers_Click(object sender, RoutedEventArgs e)
+		{
+			ContentManager.ShowContent(new DataBrowserControl(UserController.Instance));
 		}
 		#endregion
 	}

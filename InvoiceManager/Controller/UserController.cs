@@ -1,11 +1,10 @@
 ﻿/*
  * Created by Stoyan Revov
- * Date: 14.6.2013 г.
- * Time: 22:01 ч.
+ * Date: 15.6.2013 г.
+ * Time: 16:04 ч.
  */
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -17,25 +16,23 @@ using InvoiceManager.Services;
 namespace InvoiceManager.Controller
 {
 	/// <summary>
-	/// Singleton. PartnerController provides controls to a DataBrowserControl for CRUD with partners.
+	/// Singleton. UserController provides controls to a DataBrowserControl for CRUD with users. 
 	/// </summary>
-	public sealed class PartnerController : IEntityController
+	public sealed class UserController : IEntityController
 	{
 		#region singleton
-		static readonly PartnerController _partnerController = new PartnerController();
-		private PartnerController() {}
-		public static PartnerController Instance { get {return _partnerController;} }
+		static readonly UserController _userController = new UserController();
+		private UserController() {}
+		public static UserController Instance { get {return _userController;} }
 		#endregion
 		
 		readonly Dictionary<string, string> _mapping = new Dictionary<string, string>()
 		{
-			{"ЕИК/ЕГН", "ID"},
-			{"ИН по ЗДДС", "VAT_NUMBER"},
-			{"Име", "PARTNER_NAME"},
-			{"Адрес", "ADDRESS"},
-			{"Пощенски код", "POST_CODE"}
+			{"Потребител", "ID"},
+			{"Привилегии", "ROLE_ID"},
+			{"Фирма", "SELLER_ID"}
 		};
-		IRepository<Partner> partnerRepository = RepositoryFactory<Partner>.Initialize();
+		IRepository<User> userRepository = RepositoryFactory<User>.Initialize();
 		
 		public Dictionary<string, string> Mapping
 		{
@@ -49,26 +46,26 @@ namespace InvoiceManager.Controller
 		
 		public List<IEntity> GetDataSource()
 		{
-			return ((IEnumerable<IEntity>)partnerRepository.RetrieveAll()).ToList();
+			return ((IEnumerable<IEntity>)userRepository.RetrieveAll()).ToList();
 		}
 		
 		public void CreateForm()
 		{
-			ContentManager.ShowContent(FormFactory<Partner>.InitializeAddForm());
+			ContentManager.ShowContent(FormFactory<User>.InitializeAddForm());
 		}
 		
 		public void UpdateForm()
 		{
-			ContentManager.ShowContent(FormFactory<Partner>.InitializeEditForm((Partner)SelectedItem));
+			ContentManager.ShowContent(FormFactory<User>.InitializeEditForm((User)SelectedItem));
 		}
 		
 		public void DeleteForm()
 		{
-			MessageBoxResult res = MessageBox.Show("Сигурни ли сте, че искате да изтриете контрагентът " + ((Partner)SelectedItem).PARTNER_NAME,
+			MessageBoxResult res = MessageBox.Show("Сигурни ли сте, че искате да изтриете потребителят " + ((User)SelectedItem).ID,
 			               "Изтриване", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 			if (res == MessageBoxResult.Yes)
 			{
-				string message = string.Format("Изтрит контрагент {0} с ID: {1}", ((Partner)SelectedItem).PARTNER_NAME, ((Partner)SelectedItem).ID);
+				string message = string.Format("Изтрит потребител {0}", ((User)SelectedItem).ID);
 				if (Delete(SelectedItem))
 				{
 					ContentManager.PrintStatus(message);
@@ -81,7 +78,7 @@ namespace InvoiceManager.Controller
 		{
 			try
 			{
-				partnerRepository.Create((Partner)entity);
+				userRepository.Create((User)entity);
 				Changed.Invoke(this, new EventArgs());
 				return true;
 			}
@@ -96,7 +93,7 @@ namespace InvoiceManager.Controller
 		{
 			try
 			{
-				partnerRepository.Update((Partner)entity);
+				userRepository.Update((User)entity);
 				Changed.Invoke(this, new EventArgs());
 				return true;
 			}
@@ -111,7 +108,7 @@ namespace InvoiceManager.Controller
 		{
 			try
 			{
-				partnerRepository.Delete(entity.BaseID);
+				userRepository.Delete(entity.BaseID);
 				Changed.Invoke(this, new EventArgs());
 				return true;
 			}

@@ -1,7 +1,37 @@
 ﻿<UserControl x:Class="InvoiceManager.Windows.UserControls.DataBrowserControl"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-	<Grid>
-		
-	</Grid>
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	Name="This">
+	<Border BorderThickness="2" BorderBrush="LightBlue">
+		<DockPanel LastChildFill="True">
+			<StackPanel
+				DockPanel.Dock="Bottom"
+				Orientation="Horizontal"
+				HorizontalAlignment="Right">
+				<Button
+					Name="RefreshButton"
+					Click="RefreshButton_Click"
+					Margin="5,10,5,10">
+					<Image Source="/Resources/refresh.png" Width="30" Height="30"/>
+				</Button>
+				<Button
+					Name="CloseButton"
+					Click="CloseButton_Click"
+					Margin="5,10,15,10"
+					Padding="5"
+					IsCancel="True">Затвори</Button>
+			</StackPanel>
+			<ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+				<ListView Name="EntitiesListView" ItemsSource="{Binding ElementName=This, Path=Items}"
+				          SelectionMode="Single" BorderThickness="0">
+				    <ListView.View>
+				        <GridView x:Name="gridView">
+			                
+				        </GridView>
+					</ListView.View>
+				
+				</ListView>
+			</ScrollViewer>
+		</DockPanel>
+	</Border>
 </UserControl>

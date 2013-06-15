@@ -82,6 +82,7 @@
     <Compile Include="Commands\InvoiceManagerCommands.cs" />
     <Compile Include="Controller\IEntityController.cs" />
     <Compile Include="Controller\PartnerController.cs" />
+    <Compile Include="Controller\UserController.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Entities\Invoice.cs" />
     <Compile Include="Entities\Order.cs" />
@@ -104,7 +105,7 @@
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\ContentManager.cs" />
-    <Compile Include="Services\EntityControllerFactory.cs" />
+    <Compile Include="Services\FormFactory.cs" />
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Services\RepositoryFactory.cs" />
     <Compile Include="Services\SecurityManager.cs" />
@@ -117,10 +118,6 @@
       <DependentUpon>AddControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Windows\UserControls\AddPartnerControl.xaml.cs">
-      <DependentUpon>AddPartnerControl.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Windows\UserControls\DataBrowserControl.xaml.cs">
       <DependentUpon>DataBrowserControl.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -129,10 +126,7 @@
       <DependentUpon>EditControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Windows\UserControls\EditPartnerControl.xaml.cs">
-      <DependentUpon>EditPartnerControl.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Windows\UserControls\EntityEditorAttribute.cs" />
     <Compile Include="Windows\UserControls\IForm.cs" />
     <Compile Include="Windows\UserControls\ModulePanel.xaml.cs">
       <DependentUpon>ModulePanel.xaml</DependentUpon>
@@ -142,23 +136,16 @@
       <DependentUpon>PartnerForm.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Windows\UserControls\PartnersListControl.xaml.cs">
-      <DependentUpon>PartnersListControl.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Windows\UserControls\ValidationException.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="LoginWindow.xaml" />
     <Page Include="Windows\MainWindow.xaml" />
     <Page Include="Windows\UserControls\AddControl.xaml" />
-    <Page Include="Windows\UserControls\AddPartnerControl.xaml" />
     <Page Include="Windows\UserControls\DataBrowserControl.xaml" />
     <Page Include="Windows\UserControls\EditControl.xaml" />
-    <Page Include="Windows\UserControls\EditPartnerControl.xaml" />
     <Page Include="Windows\UserControls\ModulePanel.xaml" />
     <Page Include="Windows\UserControls\PartnerForm.xaml" />
-    <Page Include="Windows\UserControls\PartnersListControl.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities" />

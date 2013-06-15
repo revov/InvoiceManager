@@ -3,6 +3,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:usr="clr-namespace:InvoiceManager.Windows.UserControls"
     xmlns:commands="clr-namespace:InvoiceManager.Commands"
+    xmlns:controller="clr-namespace:InvoiceManager.Controller"
 	Title="InvoiceManager"
     Width="800"
     Height="600"
@@ -19,7 +20,7 @@
 			<Menu Grid.Row="0">
 				<MenuItem Header="Потребители">
 					<MenuItem Header="Нов" IsEnabled="{Binding Path=CurrentRole.USER_ACCESS}"/>
-					<MenuItem Header="Прегледай всички" IsEnabled="{Binding Path=CurrentRole.USER_ACCESS}"/>
+					<MenuItem Name="BrowseUsers" Header="Прегледай всички" Click="BrowseUsers_Click" IsEnabled="{Binding Path=CurrentRole.USER_ACCESS}"/>
 					<Separator/>
 					<MenuItem Header="Редактирай моят профил"/>
 					<Separator/>
@@ -31,7 +32,7 @@
 					<MenuItem Header="Прегледай всички"/>
 				</MenuItem>
 				<MenuItem Header="Контрагенти">
-					<MenuItem Name="NewPartner" Header="Нов" Command="commands:InvoiceManagerCommands.New"/>
+					<MenuItem Name="NewPartner" Command="commands:InvoiceManagerCommands.New" CommandParameter="{Binding Source={x:Static controller:PartnerController.Instance}}"/>
 					<MenuItem Name="BrowsePartners" Click="BrowsePartners_Click" Header="Прегледай всички"/>
 				</MenuItem>
 				<MenuItem Header="Фактури">

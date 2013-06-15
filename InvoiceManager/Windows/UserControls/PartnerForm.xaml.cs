@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 
+using InvoiceManager.Controller;
 using InvoiceManager.Entities;
 
 namespace InvoiceManager.Windows.UserControls
@@ -10,8 +11,11 @@ namespace InvoiceManager.Windows.UserControls
 	/// <summary>
 	/// Interaction logic for PartnerForm.xaml
 	/// </summary>
+	[EntityEditor(typeof(Partner))]
 	public partial class PartnerForm : UserControl, IForm
 	{
+		bool isEditing = false;
+		
 		public PartnerForm()
 		{
 			InitializeComponent();
@@ -19,6 +23,8 @@ namespace InvoiceManager.Windows.UserControls
 		
 		public PartnerForm(Partner partner)
 		{
+			isEditing = true;
+			InitializeComponent();
 			//populate the form
 			IdField.Text = partner.ID;
 			IdField.IsEnabled = false;
@@ -27,7 +33,6 @@ namespace InvoiceManager.Windows.UserControls
 			AddressField.Text = partner.ADDRESS;
 			PostCodeField.Text = partner.POST_CODE.ToString();
 			AdditionalInfoField.Text = partner.ADDITIONAL_INFO;
-			InitializeComponent();
 		}
 		
 		public void FiltrateForm()
@@ -135,12 +140,12 @@ namespace InvoiceManager.Windows.UserControls
 			return returnValue;
 		}
 		
-		public IEntity Hydrate()
+		public bool Persist()
 		{
 			FiltrateForm();
 			if (ValidateForm())
 			{
-				return new Partner()
+				Partner p = new Partner()
 				{
 	             	ID = IdField.Text,
 	             	VAT_NUMBER = VatNField.Text,
@@ -148,13 +153,14 @@ namespace InvoiceManager.Windows.UserControls
 	             	ADDRESS = AddressField.Text,
 	             	POST_CODE = Int32.Parse(PostCodeField.Text),
 	             	ADDITIONAL_INFO = AdditionalInfoField.Text
-				}
-				as IEntity;
+				};
+				if (isEditing) return PartnerController.Instance.Update(p);
+				else return PartnerController.Instance.Create(p);
 			}
 			else
 			{
 				FocusFirstField();
-				throw new ValidationException("PartnerForm has some invalid fields.");
+				throw new ValidationException("Не сте попълнили валидно всички полета.");
 			}
 		}
 		

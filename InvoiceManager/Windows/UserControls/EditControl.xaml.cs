@@ -17,7 +17,7 @@ using InvoiceManager.Services;
 namespace InvoiceManager.Windows.UserControls
 {
 	/// <summary>
-	/// Interaction logic for AddPartnerControl.xaml
+	/// Interaction logic for EditControl.xaml
 	/// </summary>
 	public partial class EditControl : UserControl
 	{
@@ -36,7 +36,11 @@ namespace InvoiceManager.Windows.UserControls
 		{
 			try
 			{
-				entityForm.Hydrate();
+				if (entityForm.Persist())
+				{
+					ContentManager.PrintStatus("Редактирането успешно!");
+					ContentManager.RemoveFromParent(this);
+				}
 			}
 			catch (ValidationException ex)
 			{

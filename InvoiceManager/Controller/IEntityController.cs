@@ -16,7 +16,7 @@ namespace InvoiceManager.Controller
 	/// <summary>
 	/// Defines members for an entity controller used to create an abstraction layer over repositories/entities.
 	/// </summary>
-	public interface IEntityController<T> where T : IEntity
+	public interface IEntityController
 	{
 		/// <summary>
 		/// Represents mapping between column headers and property names.
@@ -26,12 +26,12 @@ namespace InvoiceManager.Controller
 		/// <summary>
 		/// Returns a collection of items
 		/// </summary>
-		List<T> GetDataSource();
+		List<IEntity> GetDataSource();
 		
 		/// <summary>
 		/// Represents the currently selected item in the list.
 		/// </summary>
-		T SelectedItem { get; set; }
+		IEntity SelectedItem { get; set; }
 		
 		/// <summary>
 		/// Call appropriate AddEntity Control through FormFactory
@@ -40,14 +40,28 @@ namespace InvoiceManager.Controller
 		/// <summary>
 		/// Call appropriate EditEntity Control through FormFactory
 		/// </summary>
-		void UpdateForm(T entity);
+		void UpdateForm();
 		/// <summary>
 		/// Call confirmation form
 		/// </summary>
-		void DeleteForm(T entity);
+		void DeleteForm();
 		
-		void Create(T entity);
-		void Update(T entity);
-		void Delete(T entity);
+		/// <summary>
+		/// Creates an entity in the database
+		/// </summary>
+		/// <returns>True if operation successful.</returns>
+		bool Create(IEntity entity);
+		/// <summary>
+		/// Updates an entity in the database
+		/// </summary>
+		/// <returns>True if operation successful.</returns>
+		bool Update(IEntity entity);
+		/// <summary>
+		/// Deletes an entity in the database
+		/// </summary>
+		/// <returns>True if operation successful.</returns>
+		bool Delete(IEntity entity);
+		
+		event EventHandler Changed;
 	}
 }
