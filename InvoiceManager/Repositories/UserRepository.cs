@@ -82,7 +82,7 @@ namespace InvoiceManager.Repositories
         public void Update(User user)
         {
             const string statement = @"update USERS
-                                    set PASSWORD=@password, ROLE_ID=@role_id, SELLER_ID=@seller_id
+                                    set [PASSWORD]=@password, ROLE_ID=@role_id, SELLER_ID=@seller_id
                                     where ID=@id";
             OleDbCommand cmd = new OleDbCommand(statement, conn);
 

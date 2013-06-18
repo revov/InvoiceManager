@@ -23,3 +23,5 @@ C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\
 C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\AddControl.baml
 C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\EditControl.baml
 C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\EditControl.g.cs
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\UserForm.baml
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\UserForm.g.cs

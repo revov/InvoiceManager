@@ -2,8 +2,10 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
+using InvoiceManager.Entities;
 using InvoiceManager.Windows;
 using InvoiceManager.Windows.UserControls;
 
@@ -27,9 +29,9 @@ namespace InvoiceManager.Services
 			else if (parent is Decorator)
 				((Decorator)parent).Child = null;
 			else if (parent is ItemsControl)
-			{
 				((ItemsControl)parent).Items.Remove(control);
-			}
+			else if (parent is Popup)
+				((Popup)parent).IsOpen = false;
 			else throw new InvalidCastException("The parent of the userControl is not of a known type.");
 		}
 		
@@ -56,12 +58,22 @@ namespace InvoiceManager.Services
 		}
 			
 		/// <summary>
-		/// Makes a MainWindow show the control.
+		/// Makes the Main Window show the control.
 		/// </summary>
 		public static void ShowContent(Control control)
 		{
 			IMainWindow win = (IMainWindow)App.Current.MainWindow;
 			win.ShowContent(control);
 		}
+		
+		/// <summary>
+		/// Raises the EntityChosen event
+		/// </summary>
+		public static void FillEntity(IEntity entity)
+		{
+			EntityChosen.Invoke(entity, new EventArgs());
+		}
+		
+		public static event EventHandler EntityChosen;
 	}
 }

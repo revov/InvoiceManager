@@ -78,6 +78,7 @@ namespace InvoiceManager.Controller
 		{
 			try
 			{
+				((User)entity).PASSWORD = SecurityManager.CalculateSHA1(((User)entity).PASSWORD);
 				userRepository.Create((User)entity);
 				Changed.Invoke(this, new EventArgs());
 				return true;
@@ -93,6 +94,7 @@ namespace InvoiceManager.Controller
 		{
 			try
 			{
+				((User)entity).PASSWORD = SecurityManager.CalculateSHA1(((User)entity).PASSWORD);
 				userRepository.Update((User)entity);
 				Changed.Invoke(this, new EventArgs());
 				return true;

@@ -42,10 +42,10 @@ namespace InvoiceManager.Windows.UserControls
 			this.Controller = controller;
 			Items = controller.GetDataSource();
 			
-			//controller.Changed += delegate(object sender, EventArgs e) { Items = controller.GetDataSource(); };
 			controller.Changed += (sender, e) => Items = controller.GetDataSource();
 			
 			InitializeComponent();
+			dockPanel.Background = App.Current.MainWindow.Background;
 			
 			#region Mapping with column names
 			foreach(KeyValuePair<string, string> item in controller.Mapping)
@@ -131,8 +131,10 @@ namespace InvoiceManager.Windows.UserControls
 			this.Items = Controller.GetDataSource();
 		}
 		
-		void CloseButton_Click(object sender, RoutedEventArgs e)
+		void OKButton_Click(object sender, RoutedEventArgs e)
 		{
+			if (Controller.SelectedItem != null)
+				ContentManager.FillEntity(Controller.SelectedItem);
 			ContentManager.RemoveFromParent(this);
 		}
 		#endregion

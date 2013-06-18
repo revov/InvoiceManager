@@ -1,0 +1,111 @@
+﻿<UserControl x:Class="InvoiceManager.Windows.UserControls.UserForm"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	Loaded="UserForm_Loaded">
+	<ScrollViewer VerticalScrollBarVisibility="Auto"
+		DockPanel.Dock="Top">
+		<Grid
+			Margin="10"
+			VerticalAlignment="Stretch">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="Auto"></ColumnDefinition>
+				<ColumnDefinition
+					Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition
+					Height="Auto"></RowDefinition>
+				<RowDefinition
+					Height="Auto"></RowDefinition>
+				<RowDefinition
+					Height="Auto"></RowDefinition>
+				<RowDefinition
+					Height="Auto"></RowDefinition>
+				<RowDefinition
+					Height="Auto"></RowDefinition>
+				<RowDefinition
+					Height="Auto"></RowDefinition>
+				<RowDefinition
+					Height="Auto"></RowDefinition>
+				<RowDefinition
+					Height="*"></RowDefinition>
+			</Grid.RowDefinitions>
+			
+			<TextBlock
+				Margin="5"
+				Grid.Row="0"
+				Grid.Column="0"
+				HorizontalAlignment="Right">Потребителско име: *</TextBlock>
+			<TextBox
+				Name="IdField"
+				Margin="5"
+				Grid.Row="0"
+				Grid.Column="1"
+				ToolTip="Потребителското име трябва да е поне 4 знака, да започва с буква и да съдържа само букви, цифри и _"></TextBox>
+			<TextBlock
+				Name="IdError"
+				Grid.Row="1"
+				Grid.Column="1"
+				Visibility="Collapsed"
+				Foreground="Red"
+				Margin="3 0 0 0"></TextBlock>
+			<TextBlock
+				Margin="5"
+				Grid.Row="2"
+				Grid.Column="0"
+				HorizontalAlignment="Right">Парола: *</TextBlock>
+			<PasswordBox
+				Name="PasswordField"
+				Margin="5"
+				Grid.Row="2"
+				Grid.Column="1"></PasswordBox>
+			<TextBlock
+				Name="PasswordError"
+				Grid.Row="3"
+				Grid.Column="1"
+				Visibility="Collapsed"
+				Foreground="Red"
+				Margin="3 0 0 0"></TextBlock>
+			<TextBlock
+				Margin="5"
+				Grid.Row="4"
+				Grid.Column="0"
+				HorizontalAlignment="Right">Ниво на достъп: *</TextBlock>
+			<ComboBox
+				Name="RoleField"
+				SelectedIndex="2"
+				Margin="5"
+				Grid.Row="4"
+				Grid.Column="1">
+				<ComboBoxItem ToolTip="Има пълни права.">Администратор</ComboBoxItem>
+				<ComboBoxItem ToolTip="Има права за добавяне и разглеждане, но не и редактиране и изтриване.">Счетоводител</ComboBoxItem>
+				<ComboBoxItem ToolTip="Има права за разглеждане.">Одитор</ComboBoxItem>
+			</ComboBox>
+			<TextBlock
+				Margin="5"
+				Grid.Row="5"
+				Grid.Column="0"
+				HorizontalAlignment="Right">Юридическо лице: </TextBlock>
+			
+			<DockPanel Grid.Row="5" Grid.Column="1" LastChildFill="True">
+				<Button Name="BrowseUsers" DockPanel.Dock="Right" Click="BrowseUsers_Click" MinWidth="30">. . .</Button>
+				<Popup Name="usersPopup" Placement="Right" PlacementTarget="{Binding ElementName=BrowseUsers}" AllowsTransparency="True"></Popup>
+				<TextBox
+					Name="SellerField"
+					Margin="5"
+					Grid.Row="5"
+					Grid.Column="1"
+					ToolTip="Юридическото лице, от чието име потребителят може да издава фактури."></TextBox>
+			</DockPanel>
+			<TextBlock
+				Name="SellerError"
+				Grid.Row="6"
+				Grid.Column="1"
+				Visibility="Collapsed"
+				Foreground="Red"
+				Margin="3 0 0 0"></TextBlock>
+			
+		</Grid>
+	</ScrollViewer>
+</UserControl>

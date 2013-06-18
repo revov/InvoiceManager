@@ -3,7 +3,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	Name="This">
 	<Border BorderThickness="2" BorderBrush="LightBlue">
-		<DockPanel LastChildFill="True">
+		<DockPanel Name="dockPanel" LastChildFill="True">
 			<StackPanel
 				DockPanel.Dock="Bottom"
 				Orientation="Horizontal"
@@ -15,11 +15,10 @@
 					<Image Source="/Resources/refresh.png" Width="30" Height="30"/>
 				</Button>
 				<Button
-					Name="CloseButton"
-					Click="CloseButton_Click"
+					Name="OKButton"
+					Click="OKButton_Click"
 					Margin="5,10,15,10"
-					Padding="5"
-					IsCancel="True">Затвори</Button>
+					Padding="5">OK</Button>
 			</StackPanel>
 			<ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
 				<ListView Name="EntitiesListView" ItemsSource="{Binding ElementName=This, Path=Items}"
