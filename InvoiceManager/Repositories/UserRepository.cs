@@ -26,7 +26,7 @@ namespace InvoiceManager.Repositories
             const string statement = @"
                             insert into USERS (
                                 ID,
-                                PASSWORD,
+                                [PASSWORD],
                                 ROLE_ID,
                                 SELLER_ID)
                             values (

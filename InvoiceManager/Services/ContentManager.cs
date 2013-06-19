@@ -71,7 +71,8 @@ namespace InvoiceManager.Services
 		/// </summary>
 		public static void FillEntity(IEntity entity)
 		{
-			EntityChosen.Invoke(entity, new EventArgs());
+			if (EntityChosen != null)
+				EntityChosen.Invoke(entity, new EventArgs());
 		}
 		
 		public static event EventHandler EntityChosen;

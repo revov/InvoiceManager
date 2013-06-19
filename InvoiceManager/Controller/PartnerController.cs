@@ -82,7 +82,7 @@ namespace InvoiceManager.Controller
 			try
 			{
 				partnerRepository.Create((Partner)entity);
-				Changed.Invoke(this, new EventArgs());
+				OnChanged();
 				return true;
 			}
 			catch (Exception ex)
@@ -97,7 +97,7 @@ namespace InvoiceManager.Controller
 			try
 			{
 				partnerRepository.Update((Partner)entity);
-				Changed.Invoke(this, new EventArgs());
+				OnChanged();
 				return true;
 			}
 			catch (Exception ex)
@@ -112,7 +112,7 @@ namespace InvoiceManager.Controller
 			try
 			{
 				partnerRepository.Delete(entity.BaseID);
-				Changed.Invoke(this, new EventArgs());
+				OnChanged();
 				return true;
 			}
 			catch (Exception ex)
@@ -120,6 +120,12 @@ namespace InvoiceManager.Controller
 				ContentManager.PrintStatus(ex.Message, Brushes.Red);
 				return false;
 			}
+		}
+		
+		void OnChanged()
+		{
+			if (Changed != null)
+				Changed.Invoke(this, new EventArgs());
 		}
 		
 		public event EventHandler Changed;

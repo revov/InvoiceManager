@@ -22,7 +22,7 @@
 			</StackPanel>
 			<ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
 				<ListView Name="EntitiesListView" ItemsSource="{Binding ElementName=This, Path=Items}"
-				          SelectionMode="Single" BorderThickness="0">
+				          SelectionMode="Single" BorderThickness="0" MouseDoubleClick="EntitiesListView_MouseDoubleClick">
 				    <ListView.View>
 				        <GridView x:Name="gridView">
 			                

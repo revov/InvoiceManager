@@ -80,7 +80,7 @@ namespace InvoiceManager.Controller
 			{
 				((User)entity).PASSWORD = SecurityManager.CalculateSHA1(((User)entity).PASSWORD);
 				userRepository.Create((User)entity);
-				Changed.Invoke(this, new EventArgs());
+				OnChanged();
 				return true;
 			}
 			catch (Exception ex)
@@ -96,7 +96,7 @@ namespace InvoiceManager.Controller
 			{
 				((User)entity).PASSWORD = SecurityManager.CalculateSHA1(((User)entity).PASSWORD);
 				userRepository.Update((User)entity);
-				Changed.Invoke(this, new EventArgs());
+				OnChanged();
 				return true;
 			}
 			catch (Exception ex)
@@ -111,7 +111,7 @@ namespace InvoiceManager.Controller
 			try
 			{
 				userRepository.Delete(entity.BaseID);
-				Changed.Invoke(this, new EventArgs());
+				OnChanged();
 				return true;
 			}
 			catch (Exception ex)
@@ -119,6 +119,12 @@ namespace InvoiceManager.Controller
 				ContentManager.PrintStatus(ex.Message, Brushes.Red);
 				return false;
 			}
+		}
+		
+		void OnChanged()
+		{
+			if (Changed != null)
+				Changed.Invoke(this, new EventArgs());
 		}
 		
 		public event EventHandler Changed;

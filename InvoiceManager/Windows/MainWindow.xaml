@@ -19,7 +19,7 @@
 			
 			<Menu Grid.Row="0">
 				<MenuItem Header="Потребители">
-					<MenuItem Header="Нов" Command="commands:InvoiceManagerCommands.New" CommandParameter="{Binding Source={x:Static controller:UserController.Instance}}"/>
+					<MenuItem Header="Нов" IsEnabled="{Binding Path=CurrentRole.USER_ACCESS}" Command="commands:InvoiceManagerCommands.New" CommandParameter="{Binding Source={x:Static controller:UserController.Instance}}"/>
 					<MenuItem Name="BrowseUsers" Header="Прегледай всички" Click="BrowseUsers_Click" IsEnabled="{Binding Path=CurrentRole.USER_ACCESS}"/>
 					<Separator/>
 					<MenuItem Header="Редактирай моят профил"/>

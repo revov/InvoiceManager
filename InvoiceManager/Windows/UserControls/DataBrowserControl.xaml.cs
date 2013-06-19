@@ -123,6 +123,7 @@ namespace InvoiceManager.Windows.UserControls
 			style.Setters.Add(new Setter(ListViewItem.ContextMenuProperty, contextMenu));
 			Resources.Add(typeof (ListViewItem), style);
 			#endregion
+			
 		}
 		
 		#region Event handlers
@@ -136,6 +137,11 @@ namespace InvoiceManager.Windows.UserControls
 			if (Controller.SelectedItem != null)
 				ContentManager.FillEntity(Controller.SelectedItem);
 			ContentManager.RemoveFromParent(this);
+		}
+		
+		void EntitiesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			OKButton_Click(sender, (RoutedEventArgs)e);
 		}
 		#endregion
 		
