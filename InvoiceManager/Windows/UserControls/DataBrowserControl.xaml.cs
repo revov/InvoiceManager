@@ -21,7 +21,7 @@ namespace InvoiceManager.Windows.UserControls
 	/// <summary>
 	/// Use it to display data from DB tables.
 	/// </summary>
-	public partial class DataBrowserControl : UserControl
+	public partial class DataBrowserControl : UserControl, IDisposable
 	{
 		public static readonly DependencyProperty ItemsProperty =
 			DependencyProperty.Register("Items", typeof(List<IEntity>), typeof(DataBrowserControl),
@@ -42,7 +42,7 @@ namespace InvoiceManager.Windows.UserControls
 			this.Controller = controller;
 			Items = controller.GetDataSource();
 			
-			controller.Changed += (sender, e) => Items = controller.GetDataSource();
+			controller.Changed += Controller_Changed;
 			
 			InitializeComponent();
 			dockPanel.Background = App.Current.MainWindow.Background;
@@ -126,6 +126,12 @@ namespace InvoiceManager.Windows.UserControls
 			
 		}
 		
+		public void Dispose()
+		{
+			Controller.Changed -= Controller_Changed;
+			ContentManager.RemoveFromParent(this);
+		}
+		
 		#region Event handlers
 		void RefreshButton_Click(object sender, RoutedEventArgs e)
 		{
@@ -136,12 +142,17 @@ namespace InvoiceManager.Windows.UserControls
 		{
 			if (Controller.SelectedItem != null)
 				ContentManager.FillEntity(Controller.SelectedItem);
-			ContentManager.RemoveFromParent(this);
+			this.Dispose();
 		}
 		
 		void EntitiesListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
 			OKButton_Click(sender, (RoutedEventArgs)e);
+		}
+		
+		void Controller_Changed(object sender, EventArgs e)
+		{
+			Items = Controller.GetDataSource();
 		}
 		#endregion
 		

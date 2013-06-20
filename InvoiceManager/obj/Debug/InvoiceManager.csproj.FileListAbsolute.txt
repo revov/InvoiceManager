@@ -52,3 +52,5 @@ C:\Users\PC\Documents\Sharp Develop\InvoiceManager\InvoiceManager\obj\Debug\Wind
 C:\Users\PC\Documents\Sharp Develop\InvoiceManager\InvoiceManager\obj\Debug\InvoiceManager.g.resources
 C:\Users\PC\Documents\Sharp Develop\InvoiceManager\InvoiceManager\obj\Debug\InvoiceManager.exe
 C:\Users\PC\Documents\Sharp Develop\InvoiceManager\InvoiceManager\obj\Debug\InvoiceManager.pdb
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\ChangePasswordControl.baml
+C:\Users\reuf\Documents\SharpDevelop Projects\InvoiceManager\InvoiceManager\obj\Debug\Windows\UserControls\ChangePasswordControl.g.cs

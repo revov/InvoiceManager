@@ -82,6 +82,7 @@ namespace InvoiceManager.Controller
 			try
 			{
 				partnerRepository.Create((Partner)entity);
+				Logger.Log(string.Format("Добавен контрагент {0} с ID: {1}", ((Partner)entity).PARTNER_NAME, ((Partner)entity).ID));
 				OnChanged();
 				return true;
 			}
@@ -97,6 +98,7 @@ namespace InvoiceManager.Controller
 			try
 			{
 				partnerRepository.Update((Partner)entity);
+				Logger.Log(string.Format("Променен контрагент {0} с ID: {1}", ((Partner)entity).PARTNER_NAME, ((Partner)entity).ID));
 				OnChanged();
 				return true;
 			}
@@ -112,6 +114,7 @@ namespace InvoiceManager.Controller
 			try
 			{
 				partnerRepository.Delete(entity.BaseID);
+				Logger.Log(string.Format("Изтрит контрагент {0} с ID: {1}", ((Partner)entity).PARTNER_NAME, ((Partner)entity).ID));
 				OnChanged();
 				return true;
 			}

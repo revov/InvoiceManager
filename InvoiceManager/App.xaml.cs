@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Xml;
 
 using InvoiceManager.Services;
-//TODO:!!! Fix memory leaks: userControls are not destructed by the Garbage collector due to databindings
+
 namespace InvoiceManager
 {
 	/// <summary>

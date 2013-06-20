@@ -22,8 +22,15 @@ namespace InvoiceManager.Windows.UserControls
 			InitializeComponent();
 		}
 		
+		/// <summary>
+		/// Adds a control to the panel
+		/// </summary>
+		/// <param name="control">Must implement IDisposable.</param>
 		public void Add(Control control)
 		{
+			if ( !(control is IDisposable) )
+				throw new ArgumentException("You cannot add controls to tha ModulePanel which do not implement the IDisposable interface.");
+			
 			if (ModuleGrid.Children.Count == 1 && ModuleWrapPanel.Children.Count == 0)
 				ModuleGrid.Children.Add(control);
 			else if(ModuleGrid.Children.Count == 2)
@@ -35,6 +42,19 @@ namespace InvoiceManager.Windows.UserControls
 			}
 			else
 				ModuleWrapPanel.Children.Add(control);
+		}
+		
+		public void Clear()
+		{
+			for (int i = ModuleWrapPanel.Children.Count - 1; i >= 0; i--)
+			{
+				((IDisposable)ModuleWrapPanel.Children[i]).Dispose();
+			}
+			
+			for (int i = ModuleGrid.Children.Count - 1; i > 0; i--)
+			{
+				((IDisposable)ModuleGrid.Children[i]).Dispose();
+			}
 		}
 		
 		void Module_LayoutUpdated(object sender, EventArgs e)

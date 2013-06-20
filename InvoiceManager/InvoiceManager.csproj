@@ -114,6 +114,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Windows\UserControls\ChangePasswordControl.xaml.cs">
+      <DependentUpon>ChangePasswordControl.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Windows\UserControls\UserForm.xaml.cs">
       <DependentUpon>UserForm.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -145,6 +149,7 @@
   <ItemGroup>
     <Page Include="LoginWindow.xaml" />
     <Page Include="Windows\MainWindow.xaml" />
+    <Page Include="Windows\UserControls\ChangePasswordControl.xaml" />
     <Page Include="Windows\UserControls\UserForm.xaml" />
     <Page Include="Windows\UserControls\AddControl.xaml" />
     <Page Include="Windows\UserControls\DataBrowserControl.xaml" />

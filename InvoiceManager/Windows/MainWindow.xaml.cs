@@ -20,7 +20,7 @@ namespace InvoiceManager.Windows
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window, IMainWindow
+	public partial class MainWindow : Window, IMainWindow, IDisposable
 	{
 		public MainWindow(SessionInfo sessionInfo)
 		{
@@ -46,6 +46,13 @@ namespace InvoiceManager.Windows
 			
 			InitializeComponent();
 			App.Current.MainWindow = this;
+		}
+		
+		public void Dispose()
+		{
+			MainAreaModulePanel.Clear();
+			CommandBindings.Clear();
+			App.Current.MainWindow = null;
 		}
 		
 		public void PrintStatus(string message)
@@ -153,6 +160,16 @@ namespace InvoiceManager.Windows
 		void BrowseUsers_Click(object sender, RoutedEventArgs e)
 		{
 			ContentManager.ShowContent(new DataBrowserControl(UserController.Instance));
+		}
+		
+		void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			this.Dispose();
+		}
+		
+		void ChangePassword_Click(object sender, RoutedEventArgs e)
+		{
+			ContentManager.ShowContent(new ChangePasswordControl(UserController.Instance));
 		}
 		#endregion
 	}

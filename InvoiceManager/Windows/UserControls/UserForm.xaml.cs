@@ -14,13 +14,13 @@ namespace InvoiceManager.Windows.UserControls
 	/// Interaction logic for PartnerForm.xaml
 	/// </summary>
 	[EntityEditor(typeof(User))]
-	public partial class UserForm : UserControl, IForm
+	public partial class UserForm : UserControl, IForm, IDisposable
 	{
 		bool isEditing = false;
 		
 		public UserForm()
 		{
-			ContentManager.EntityChosen += (sender, e) => {if (sender is Partner) SellerField.Text = ((Partner)sender).ID;};
+			ContentManager.EntityChosen += Entity_Chosen;
 			InitializeComponent();
 			usersPopup.Child = new DataBrowserControl(PartnerController.Instance);
 		}
@@ -34,6 +34,13 @@ namespace InvoiceManager.Windows.UserControls
 			IdField.IsEnabled = false;
 			RoleField.SelectedIndex = Convert.ToInt32(user.ROLE_ID) - 1;
 			SellerField.Text = user.SELLER_ID;
+		}
+		
+		public void Dispose()
+		{
+			((IDisposable)usersPopup.Child).Dispose();
+			ContentManager.EntityChosen -= Entity_Chosen;
+			ContentManager.RemoveFromParent(this);
 		}
 		
 		public void FiltrateForm()
@@ -148,6 +155,9 @@ namespace InvoiceManager.Windows.UserControls
 		{
 			usersPopup.IsOpen = !usersPopup.IsOpen;
 		}
-		
+		void Entity_Chosen (object sender, EventArgs e)
+		{
+			if (sender is Partner) SellerField.Text = ((Partner)sender).ID;
+		}
 	}
 }

@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 
 using InvoiceManager.Controller;
 using InvoiceManager.Entities;
+using InvoiceManager.Services;
 
 namespace InvoiceManager.Windows.UserControls
 {
@@ -12,7 +14,7 @@ namespace InvoiceManager.Windows.UserControls
 	/// Interaction logic for PartnerForm.xaml
 	/// </summary>
 	[EntityEditor(typeof(Partner))]
-	public partial class PartnerForm : UserControl, IForm
+	public partial class PartnerForm : UserControl, IForm, IDisposable
 	{
 		bool isEditing = false;
 		
@@ -33,6 +35,11 @@ namespace InvoiceManager.Windows.UserControls
 			AddressField.Text = partner.ADDRESS;
 			PostCodeField.Text = partner.POST_CODE.ToString();
 			AdditionalInfoField.Text = partner.ADDITIONAL_INFO;
+		}
+		
+		public void Dispose()
+		{
+			ContentManager.RemoveFromParent(this);
 		}
 		
 		public void FiltrateForm()

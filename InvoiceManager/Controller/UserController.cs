@@ -80,6 +80,7 @@ namespace InvoiceManager.Controller
 			{
 				((User)entity).PASSWORD = SecurityManager.CalculateSHA1(((User)entity).PASSWORD);
 				userRepository.Create((User)entity);
+				Logger.Log(string.Format("Добавен потребител {0} с ниво на привилегии: {1}", ((User)entity).ID, ((User)entity).ROLE_ID));
 				OnChanged();
 				return true;
 			}
@@ -96,6 +97,7 @@ namespace InvoiceManager.Controller
 			{
 				((User)entity).PASSWORD = SecurityManager.CalculateSHA1(((User)entity).PASSWORD);
 				userRepository.Update((User)entity);
+				Logger.Log(string.Format("Редактиран потребител {0} с ниво на привилегии: {1}", ((User)entity).ID, ((User)entity).ROLE_ID));
 				OnChanged();
 				return true;
 			}
@@ -111,6 +113,7 @@ namespace InvoiceManager.Controller
 			try
 			{
 				userRepository.Delete(entity.BaseID);
+				Logger.Log(string.Format("Изтрит потребител {0} с ниво на привилегии: {1}", ((User)entity).ID, ((User)entity).ROLE_ID));
 				OnChanged();
 				return true;
 			}

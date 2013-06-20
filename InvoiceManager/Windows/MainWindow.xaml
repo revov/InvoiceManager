@@ -9,7 +9,8 @@
     Height="600"
     ResizeMode="CanResize"
     MinHeight="320"
-    MinWidth="350">
+    MinWidth="350"
+	Closing="Window_Closing">
 	<Grid Name="MainWindowGrid">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
@@ -19,10 +20,10 @@
 			
 			<Menu Grid.Row="0">
 				<MenuItem Header="Потребители">
-					<MenuItem Header="Нов" IsEnabled="{Binding Path=CurrentRole.USER_ACCESS}" Command="commands:InvoiceManagerCommands.New" CommandParameter="{Binding Source={x:Static controller:UserController.Instance}}"/>
+					<MenuItem Header="Нов" IsEnabled="{Binding Path=CurrentRole.USER_ACCESS}" Command="commands:InvoiceManagerCommands.New" CommandParameter="{x:Static controller:UserController.Instance}"/>
 					<MenuItem Name="BrowseUsers" Header="Прегледай всички" Click="BrowseUsers_Click" IsEnabled="{Binding Path=CurrentRole.USER_ACCESS}"/>
 					<Separator/>
-					<MenuItem Header="Редактирай моят профил"/>
+					<MenuItem Name="ChangePassword" Header="Смяна на парола" Click="ChangePassword_Click"/>
 					<Separator/>
 					<MenuItem Name="MenuSignOut" Click="MenuSignOut_Click" Header="Отпиши ме" ToolTip="Връщане на екрана за смяна на потребител"/>
 					<MenuItem Name="MenuExit" Click="MenuExit_Click" Header="Изход" ToolTip="Изход от приложението"/>
@@ -32,7 +33,7 @@
 					<MenuItem Header="Прегледай всички"/>
 				</MenuItem>
 				<MenuItem Header="Контрагенти">
-					<MenuItem Name="NewPartner" Command="commands:InvoiceManagerCommands.New" CommandParameter="{Binding Source={x:Static controller:PartnerController.Instance}}"/>
+					<MenuItem Name="NewPartner" Command="commands:InvoiceManagerCommands.New" CommandParameter="{x:Static controller:PartnerController.Instance}"/>
 					<MenuItem Name="BrowsePartners" Click="BrowsePartners_Click" Header="Прегледай всички"/>
 				</MenuItem>
 				<MenuItem Header="Фактури">

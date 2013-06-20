@@ -19,7 +19,7 @@ namespace InvoiceManager.Windows.UserControls
 	/// <summary>
 	/// Interaction logic for EditControl.xaml
 	/// </summary>
-	public partial class EditControl : UserControl
+	public partial class EditControl : UserControl, IDisposable
 	{
 		IForm entityForm;
 		
@@ -32,6 +32,12 @@ namespace InvoiceManager.Windows.UserControls
 			AddControlDockPanel.Children.Add(uiForm);
 		}
 		
+		public void Dispose()
+		{
+			((IDisposable)entityForm).Dispose();
+			ContentManager.RemoveFromParent(this);
+		}
+		
 		protected void EditButton_Click(object sender, RoutedEventArgs e)
 		{
 			try
@@ -39,7 +45,7 @@ namespace InvoiceManager.Windows.UserControls
 				if (entityForm.Persist())
 				{
 					ContentManager.PrintStatus("Редактирането успешно!");
-					ContentManager.RemoveFromParent(this);
+					this.Dispose();
 				}
 			}
 			catch (ValidationException ex)
@@ -50,7 +56,8 @@ namespace InvoiceManager.Windows.UserControls
 		
 		protected void CancelButton_Click(object sender, RoutedEventArgs e)
 		{
-			ContentManager.RemoveFromParent(this);
+			this.Dispose();
 		}
+		
 	}
 }

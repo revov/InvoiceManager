@@ -40,7 +40,10 @@ namespace InvoiceManager.Repositories
             cmd.Parameters.AddWithValue("@id", user.ID);
             cmd.Parameters.AddWithValue("@password", user.PASSWORD);
             cmd.Parameters.AddWithValue("@role_id", user.ROLE_ID);
-            cmd.Parameters.AddWithValue("@seller_id", user.SELLER_ID);
+            if (user.SELLER_ID == "")
+            	cmd.Parameters.AddWithValue("@seller_id", DBNull.Value);
+            else
+            	cmd.Parameters.AddWithValue("@seller_id", user.SELLER_ID);
 
             try
             {
@@ -81,14 +84,20 @@ namespace InvoiceManager.Repositories
         /// </summary>
         public void Update(User user)
         {
-            const string statement = @"update USERS
+            string statement = @"update USERS
                                     set [PASSWORD]=@password, ROLE_ID=@role_id, SELLER_ID=@seller_id
                                     where ID=@id";
             OleDbCommand cmd = new OleDbCommand(statement, conn);
 
             cmd.Parameters.AddWithValue("@password", user.PASSWORD);
             cmd.Parameters.AddWithValue("@role_id", user.ROLE_ID);
-            cmd.Parameters.AddWithValue("@seller_id", user.SELLER_ID);
+            
+            if (user.SELLER_ID == "")
+            	cmd.Parameters.AddWithValue("@seller_id", DBNull.Value);
+            else
+            	cmd.Parameters.AddWithValue("@seller_id", user.SELLER_ID);
+            	
+            
             cmd.Parameters.AddWithValue("@id", user.ID);
 
             try
