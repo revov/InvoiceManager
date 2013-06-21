@@ -5,6 +5,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -26,20 +27,19 @@ namespace InvoiceManager.Controller
 		public static UserController Instance { get {return _userController;} }
 		#endregion
 		
+		IRepository<User> userRepository = RepositoryFactory<User>.Initialize();
+		
 		readonly Dictionary<string, string> _mapping = new Dictionary<string, string>()
 		{
 			{"Потребител", "ID"},
-			{"Привилегии", "ROLE_ID"},
-			{"Фирма", "SELLER_ID"}
+			{"Привилегии", "Role"},
+			{"Фирма", "Seller"}
 		};
-		IRepository<User> userRepository = RepositoryFactory<User>.Initialize();
 		
+		#region interface implementation
 		public Dictionary<string, string> Mapping
 		{
-			get
-			{
-				return _mapping;
-			}
+			get { return _mapping; }
 		}
 		
 		public IEntity SelectedItem { get; set; }
@@ -131,5 +131,8 @@ namespace InvoiceManager.Controller
 		}
 		
 		public event EventHandler Changed;
+		
+		#endregion
+		
 	}
 }

@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -27,6 +28,8 @@ namespace InvoiceManager.Controller
 		public static PartnerController Instance { get {return _partnerController;} }
 		#endregion
 		
+		IRepository<Partner> partnerRepository = RepositoryFactory<Partner>.Initialize();
+		
 		readonly Dictionary<string, string> _mapping = new Dictionary<string, string>()
 		{
 			{"ЕИК/ЕГН", "ID"},
@@ -35,14 +38,11 @@ namespace InvoiceManager.Controller
 			{"Адрес", "ADDRESS"},
 			{"Пощенски код", "POST_CODE"}
 		};
-		IRepository<Partner> partnerRepository = RepositoryFactory<Partner>.Initialize();
 		
+		#region interface implementation
 		public Dictionary<string, string> Mapping
 		{
-			get
-			{
-				return _mapping;
-			}
+			get { return _mapping; }
 		}
 		
 		public IEntity SelectedItem { get; set; }
@@ -132,5 +132,8 @@ namespace InvoiceManager.Controller
 		}
 		
 		public event EventHandler Changed;
+		
+		#endregion
+		
 	}
 }

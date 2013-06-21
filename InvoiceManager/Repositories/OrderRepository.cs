@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Data.OleDb;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
+using System.Data.OleDb;
 
 using InvoiceManager.Entities;
 
@@ -128,6 +129,7 @@ namespace InvoiceManager.Repositories
             {
                 conn.Open();
                 dataReader = cmd.ExecuteReader();
+                if (!dataReader.HasRows) return null;
                 dataReader.Read();
                 return new Order
                                 {
@@ -186,5 +188,6 @@ namespace InvoiceManager.Repositories
                 conn.Close();
             }
         }
+        
 	}
 }

@@ -24,6 +24,7 @@ namespace InvoiceManager.Repositories
             {
                 conn.Open();
                 dataReader = cmd.ExecuteReader();
+                if (!dataReader.HasRows) return null;
                 dataReader.Read();
                 return new Role
                                 {

@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Data.OleDb;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
+using System.Data.OleDb;
 
 using InvoiceManager.Entities;
 
@@ -128,6 +129,7 @@ namespace InvoiceManager.Repositories
             {
                 conn.Open();
                 dataReader = cmd.ExecuteReader();
+                if (!dataReader.HasRows) return null;
                 dataReader.Read();
                 return new User
                                 {
@@ -184,5 +186,32 @@ namespace InvoiceManager.Repositories
                 conn.Close();
             }
         }
+        
+        /*
+        public DataTable RetreiveAllDenormalized()
+		{
+			const string statement = "select U.ID, U.PASSWORD, U.ROLE_ID, P.PARTNER_NAME " +
+				"from USERS U left join PARTNERS P " +
+				"on U.SELLER_ID=P.ID";
+            OleDbCommand cmd = new OleDbCommand(statement, conn);
+
+            OleDbDataReader dataReader = null;
+
+            try
+            {
+                conn.Open();
+                dataReader = cmd.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(dataReader);
+                return dt;
+            }
+            finally
+            {
+                if (dataReader != null) dataReader.Close();
+                conn.Close();
+            }
+		}
+		*/
+        
 	}
 }

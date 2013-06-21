@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -40,11 +41,17 @@ namespace InvoiceManager.Windows.UserControls
 			if (controller == null)
 				throw new ArgumentNullException("IEntityController<T> cannot be null");
 			this.Controller = controller;
+			
+			//Fill the properties with "fresh" data
 			Items = controller.GetDataSource();
 			
+			//Listen when the data changes so that we can update the properties holding the data
 			controller.Changed += Controller_Changed;
 			
 			InitializeComponent();
+			
+			//Setting the background is required => when using DataBrowserControl as a popup
+			//and it flows out of the window its background shouldn't be transparent
 			dockPanel.Background = App.Current.MainWindow.Background;
 			
 			#region Mapping with column names
@@ -152,7 +159,7 @@ namespace InvoiceManager.Windows.UserControls
 		
 		void Controller_Changed(object sender, EventArgs e)
 		{
-			Items = Controller.GetDataSource();
+			RefreshButton_Click(sender, new RoutedEventArgs());
 		}
 		#endregion
 		
