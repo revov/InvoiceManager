@@ -1,7 +1,7 @@
 ﻿/*
  * Created by Stoyan Revov
- * Date: 15.6.2013 г.
- * Time: 16:04 ч.
+ * Date: 27.6.2013 г.
+ * Time: 14:15 ч.
  */
 using System;
 using System.Collections.Generic;
@@ -16,23 +16,24 @@ using InvoiceManager.Services;
 namespace InvoiceManager.Controller
 {
 	/// <summary>
-	/// Singleton. UserController provides controls to a DataBrowserControl for CRUD with users. 
+	/// Singleton. ProductController provides controls to a DataBrowserControl for CRUD with products.
 	/// </summary>
-	public sealed class UserController : IEntityController
+	public sealed class ProductController : IEntityController
 	{
 		#region singleton
-		static readonly UserController _userController = new UserController();
-		private UserController() {}
-		public static UserController Instance { get {return _userController;} }
+		static readonly ProductController _productController = new ProductController();
+		private ProductController() {}
+		public static ProductController Instance { get {return _productController;} }
 		#endregion
 		
-		IRepository<User> userRepository = RepositoryFactory<User>.Initialize();
+		IRepository<Product> productRepository = RepositoryFactory<Product>.Initialize();
 		
 		readonly Dictionary<string, string> _mapping = new Dictionary<string, string>()
 		{
-			{"Потребител", "ID"},
-			{"Привилегии", "Role"},
-			{"Фирма", "Seller"}
+			{"Артикул №", "ID"},
+			{"Наименование", "PRODUCT_NAME"},
+			{"Мерна единица", "MEASUREMENT_UNIT"},
+			{"Цена в лв.", "PRICE"}
 		};
 		
 		#region interface implementation
@@ -45,26 +46,26 @@ namespace InvoiceManager.Controller
 		
 		public List<IEntity> GetDataSource()
 		{
-			return ((IEnumerable<IEntity>)userRepository.RetrieveAll()).ToList();
+			return ((IEnumerable<IEntity>)productRepository.RetrieveAll()).ToList();
 		}
 		
 		public void CreateForm()
 		{
-			ContentManager.ShowContent(FormFactory<User>.InitializeAddForm());
+			ContentManager.ShowContent(FormFactory<Product>.InitializeAddForm());
 		}
 		
 		public void UpdateForm()
 		{
-			ContentManager.ShowContent(FormFactory<User>.InitializeEditForm((User)SelectedItem));
+			ContentManager.ShowContent(FormFactory<Product>.InitializeEditForm((Product)SelectedItem));
 		}
 		
 		public void DeleteForm()
 		{
-			MessageBoxResult res = MessageBox.Show("Сигурни ли сте, че искате да изтриете потребителят " + ((User)SelectedItem).ID,
+			MessageBoxResult res = MessageBox.Show("Сигурни ли сте, че искате да изтриете продукта " + ((Product)SelectedItem).PRODUCT_NAME,
 			               "Изтриване", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 			if (res == MessageBoxResult.Yes)
 			{
-				string message = string.Format("Изтрит потребител {0}", ((User)SelectedItem).ID);
+				string message = string.Format("Изтрит продукт {0} с ID: {1}", ((Product)SelectedItem).PRODUCT_NAME, ((Product)SelectedItem).ID);
 				if (Delete(SelectedItem))
 				{
 					ContentManager.PrintStatus(message);
@@ -77,9 +78,8 @@ namespace InvoiceManager.Controller
 		{
 			try
 			{
-				((User)entity).PASSWORD = SecurityManager.CalculateSHA1(((User)entity).PASSWORD);
-				userRepository.Create((User)entity);
-				Logger.Log(string.Format("Добавен потребител {0} с ниво на привилегии: {1}", ((User)entity).ID, ((User)entity).ROLE_ID));
+				productRepository.Create((Product)entity);
+				Logger.Log(string.Format("Добавен продукт {0} с ID: {1}", ((Product)entity).PRODUCT_NAME, ((Product)entity).ID));
 				OnChanged();
 				return true;
 			}
@@ -94,9 +94,8 @@ namespace InvoiceManager.Controller
 		{
 			try
 			{
-				((User)entity).PASSWORD = SecurityManager.CalculateSHA1(((User)entity).PASSWORD);
-				userRepository.Update((User)entity);
-				Logger.Log(string.Format("Редактиран потребител {0} с ниво на привилегии: {1}", ((User)entity).ID, ((User)entity).ROLE_ID));
+				productRepository.Update((Product)entity);
+				Logger.Log(string.Format("Променен продукт {0} с ID: {1}", ((Product)entity).PRODUCT_NAME, ((Product)entity).ID));
 				OnChanged();
 				return true;
 			}
@@ -111,8 +110,8 @@ namespace InvoiceManager.Controller
 		{
 			try
 			{
-				userRepository.Delete(entity.BaseID);
-				Logger.Log(string.Format("Изтрит потребител {0} с ниво на привилегии: {1}", ((User)entity).ID, ((User)entity).ROLE_ID));
+				productRepository.Delete(entity.BaseID);
+				Logger.Log(string.Format("Изтрит продукт {0} с ID: {1}", ((Product)entity).PRODUCT_NAME, ((Product)entity).ID));
 				OnChanged();
 				return true;
 			}

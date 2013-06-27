@@ -14,7 +14,6 @@ namespace InvoiceManager
 	/// </summary>
 	public partial class App : Application
 	{
-		#region AutoSelect TextBoxes and PasswordBoxes on GotFocus
 		void Application_Startup(object sender, StartupEventArgs e)
 		{
 		        //works for tab into textbox
@@ -25,6 +24,9 @@ namespace InvoiceManager
 		        EventManager.RegisterClassHandler(typeof(PasswordBox),
 		            PasswordBox.GotFocusEvent,
 		            new RoutedEventHandler(PasswordBox_GotFocus));
+		        
+		        //Make sure Current Culture is set to bg-BG
+		        System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("bg-BG");
 		}
 		
 		private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -42,6 +44,5 @@ namespace InvoiceManager
 			if (SecurityManager.CurrentSessionInfo != null)
 				SecurityManager.DeAuthenticateUser();
 		}
-	    #endregion
 	}
 }

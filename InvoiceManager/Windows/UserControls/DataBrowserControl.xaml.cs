@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -61,6 +62,10 @@ namespace InvoiceManager.Windows.UserControls
 					{
 						Header = item.Key,
 						DisplayMemberBinding = new Binding(item.Value)
+							{
+								StringFormat = item.Value.Contains("PRICE") ? "C" : "",
+								ConverterCulture = Thread.CurrentThread.CurrentCulture
+							}
 					};
 				gridView.Columns.Add(column);
 			}

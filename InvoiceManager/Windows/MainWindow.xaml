@@ -29,8 +29,8 @@
 					<MenuItem Name="MenuExit" Click="MenuExit_Click" Header="Изход" ToolTip="Изход от приложението"/>
 				</MenuItem>
 				<MenuItem Header="Продукти">
-					<MenuItem Header="Нов" IsEnabled="{Binding Path=CurrentRole.WRITE_ACCESS}"/>
-					<MenuItem Header="Прегледай всички"/>
+					<MenuItem Name="NewProduct" Header="Нов" Command="commands:InvoiceManagerCommands.New" CommandParameter="{x:Static controller:ProductController.Instance}"/>
+					<MenuItem Name="BrowseProducts" Click="BrowseProducts_Click" Header="Прегледай всички"/>
 				</MenuItem>
 				<MenuItem Header="Контрагенти">
 					<MenuItem Name="NewPartner" Command="commands:InvoiceManagerCommands.New" CommandParameter="{x:Static controller:PartnerController.Instance}"/>

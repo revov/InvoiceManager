@@ -26,22 +26,19 @@ namespace InvoiceManager.Repositories
         {
             const string statement = @"
                             insert into PRODUCTS (
-                                ID,
                                 PRODUCT_NAME,
                                 MEASUREMENT_UNIT,
                                 PRICE)
                             values (
-                                @id,
                                 @product_name,
                                 @measurement_unit,
                                 @price)";
 
             OleDbCommand cmd = new OleDbCommand(statement, conn);
 
-            cmd.Parameters.AddWithValue("@id", product.ID);
             cmd.Parameters.AddWithValue("@product_name", product.PRODUCT_NAME);
             cmd.Parameters.AddWithValue("@measurement_unit", product.MEASUREMENT_UNIT);
-            cmd.Parameters.AddWithValue("@price", product.PRICE);
+            cmd.Parameters.AddWithValue("@price", product.PRICE.ToString());
 
             try
             {
@@ -89,7 +86,7 @@ namespace InvoiceManager.Repositories
 
             cmd.Parameters.AddWithValue("@product_name", product.PRODUCT_NAME);
             cmd.Parameters.AddWithValue("@measurement_unit", product.MEASUREMENT_UNIT);
-            cmd.Parameters.AddWithValue("@price", product.PRICE);
+            cmd.Parameters.AddWithValue("@price", product.PRICE.ToString());
             cmd.Parameters.AddWithValue("@id", product.ID);
 
             try
@@ -124,10 +121,10 @@ namespace InvoiceManager.Repositories
                 dataReader.Read();
                 return new Product
                                 {
-                					ID = ulong.Parse(dataReader["PRICE"].ToString()),
+                					ID = ulong.Parse(dataReader["ID"].ToString()),
                                     PRODUCT_NAME = dataReader["PRODUCT_NAME"].ToString(),
                                     MEASUREMENT_UNIT = dataReader["MEASUREMENT_UNIT"].ToString(),
-                                    PRICE = Convert.ToInt32(dataReader["PRICE"])
+                                    PRICE = Convert.ToDecimal(dataReader["PRICE"])
                                 };
             }
             finally
@@ -159,10 +156,10 @@ namespace InvoiceManager.Repositories
                 	{
                 		products.Add(new Product
                 		             {
-                		             	ID = ulong.Parse(dataReader["PRICE"].ToString()),
+                		             	ID = ulong.Parse(dataReader["ID"].ToString()),
 	                                    PRODUCT_NAME = dataReader["PRODUCT_NAME"].ToString(),
 	                                    MEASUREMENT_UNIT = dataReader["MEASUREMENT_UNIT"].ToString(),
-	                                    PRICE = Convert.ToInt32(dataReader["PRICE"])
+	                                    PRICE = Convert.ToDecimal(dataReader["PRICE"])
                 		             });
                 	}
                 	return products;

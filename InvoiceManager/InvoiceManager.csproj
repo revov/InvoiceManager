@@ -82,6 +82,7 @@
     <Compile Include="Commands\InvoiceManagerCommands.cs" />
     <Compile Include="Controller\IEntityController.cs" />
     <Compile Include="Controller\PartnerController.cs" />
+    <Compile Include="Controller\ProductController.cs" />
     <Compile Include="Controller\UserController.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Entities\Invoice.cs" />
@@ -118,6 +119,10 @@
       <DependentUpon>ChangePasswordControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Windows\UserControls\ProductForm.xaml.cs">
+      <DependentUpon>ProductForm.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Windows\UserControls\UserForm.xaml.cs">
       <DependentUpon>UserForm.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -150,6 +155,7 @@
     <Page Include="LoginWindow.xaml" />
     <Page Include="Windows\MainWindow.xaml" />
     <Page Include="Windows\UserControls\ChangePasswordControl.xaml" />
+    <Page Include="Windows\UserControls\ProductForm.xaml" />
     <Page Include="Windows\UserControls\UserForm.xaml" />
     <Page Include="Windows\UserControls\AddControl.xaml" />
     <Page Include="Windows\UserControls\DataBrowserControl.xaml" />

@@ -171,6 +171,11 @@ namespace InvoiceManager.Windows
 		{
 			ContentManager.ShowContent(new ChangePasswordControl(UserController.Instance));
 		}
+		
+		void BrowseProducts_Click(object sender, RoutedEventArgs e)
+		{
+			ContentManager.ShowContent(new DataBrowserControl(ProductController.Instance));
+		}
 		#endregion
 	}
 }

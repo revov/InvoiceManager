@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="InvoiceManager.Windows.UserControls.ProductForm"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ScrollViewer VerticalScrollBarVisibility="Auto"
+		DockPanel.Dock="Top">
+		<Grid
+			Margin="10"
+			VerticalAlignment="Stretch">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="Auto"></ColumnDefinition>
+				<ColumnDefinition
+					Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition
+					Height="Auto"></RowDefinition>
+				<RowDefinition
+					Height="Auto"></RowDefinition>
+				<RowDefinition
+					Height="Auto"></RowDefinition>
+				<RowDefinition
+					Height="Auto"></RowDefinition>
+				<RowDefinition
+					Height="Auto"></RowDefinition>
+				<RowDefinition
+					Height="Auto"></RowDefinition>
+				<RowDefinition
+					Height="*"></RowDefinition>
+			</Grid.RowDefinitions>
+			
+			<TextBlock
+				Margin="5"
+				Grid.Row="0"
+				Grid.Column="0"
+				HorizontalAlignment="Right">№ на артикул:</TextBlock>
+			<TextBox
+				Name="IdField"
+				IsEnabled="False"
+				Margin="5"
+				Grid.Row="0"
+				Grid.Column="1">Генерира се автоматично</TextBox>
+			<TextBlock
+				Margin="5"
+				Grid.Row="1"
+				Grid.Column="0"
+				HorizontalAlignment="Right">Артикул: *</TextBlock>
+			<TextBox
+				Name="NameField"
+				Margin="5"
+				Grid.Row="1"
+				Grid.Column="1"
+				ToolTip="Наименование на артикула."></TextBox>
+			<TextBlock
+				Name="NameError"
+				Grid.Row="2"
+				Grid.Column="1"
+				Visibility="Collapsed"
+				Foreground="Red"
+				Margin="3 0 0 0"></TextBlock>
+			<TextBlock
+				Margin="5"
+				Grid.Row="3"
+				Grid.Column="0"
+				HorizontalAlignment="Right">Мерна единица: *</TextBlock>
+			<TextBox
+				Name="MUField"
+				MaxLength="5"
+				Margin="5"
+				Grid.Row="3"
+				Grid.Column="1"
+				ToolTip="Максимална дължина - 5 символа. Напр.: кг, л, бр"></TextBox>
+			<TextBlock
+				Name="MUError"
+				Grid.Row="4"
+				Grid.Column="1"
+				Visibility="Collapsed"
+				Foreground="Red"
+				Margin="3 0 0 0"></TextBlock>
+			<TextBlock
+				Margin="5"
+				Grid.Row="5"
+				Grid.Column="0"
+				HorizontalAlignment="Right">Цена в лв: *</TextBlock>
+			<TextBox
+				Name="PriceField"
+				Margin="5"
+				Grid.Row="5"
+				Grid.Column="1"></TextBox>
+			<TextBlock
+				Name="PriceError"
+				Grid.Row="6"
+				Grid.Column="1"
+				Visibility="Collapsed"
+				Foreground="Red"
+				Margin="3 0 0 0"></TextBlock>
+			
+		</Grid>
+	</ScrollViewer>
+</UserControl>
