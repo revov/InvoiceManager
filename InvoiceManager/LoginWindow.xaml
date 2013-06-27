@@ -5,7 +5,8 @@
 	Height="230"
 	Width="450"
 	ResizeMode="NoResize"
-	Loaded="Window_Loaded">
+	Loaded="Window_Loaded"
+	Icon="Resources/Icon64.png">
 	<DockPanel>
 		<StackPanel
 			DockPanel.Dock="Bottom"

@@ -19,6 +19,7 @@
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <WarningLevel>4</WarningLevel>
+    <ApplicationIcon>Resources\favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -179,6 +180,9 @@
     <Resource Include="Resources\new.png" />
     <Resource Include="Resources\Delete.png" />
     <Resource Include="Resources\Edit.png" />
+    <None Include="Resources\favicon.ico" />
+    <None Include="Resources\Icon license.txt" />
+    <Resource Include="Resources\icon64.png" />
     <None Include="Resources\InvoiceDB.accdb" />
     <Resource Include="Resources\questionMark.png" />
   </ItemGroup>

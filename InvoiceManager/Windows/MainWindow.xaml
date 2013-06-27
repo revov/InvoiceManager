@@ -10,7 +10,8 @@
     ResizeMode="CanResize"
     MinHeight="320"
     MinWidth="350"
-	Closing="Window_Closing">
+	Closing="Window_Closing"
+	Icon="/Resources/Icon64.png">
 	<Grid Name="MainWindowGrid">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
